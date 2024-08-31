@@ -19,5 +19,6 @@ model User {
   email        String  @unique
   firstName    String
   lastName     String
+  password     String
   profilePhoto String?
 }
