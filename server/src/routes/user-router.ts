@@ -7,12 +7,6 @@ import { hashPassword } from "../utils/encryption";
 
 export const userRoute = new Hono<{ Bindings: Bindings }>();
 
-userRoute.get("/", async (c) => {
-  return c.json({
-    message: "Worker is up",
-  });
-});
-
 userRoute.post("/signup", async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
