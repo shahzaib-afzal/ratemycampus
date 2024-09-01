@@ -9,5 +9,5 @@ interface User {
   firstName: string;
   lastName: string;
   password: string;
-  profilePhoto: File;
+  profilePhoto?: File;
 }
