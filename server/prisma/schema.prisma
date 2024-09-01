@@ -20,5 +20,6 @@ model User {
   firstName    String
   lastName     String
   password     String
+  isVerified   Boolean @default(false)
   profilePhoto String?
 }
