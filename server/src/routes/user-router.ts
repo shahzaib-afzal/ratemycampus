@@ -6,6 +6,7 @@ import { userSchema } from "../schema/zod";
 import { hashPassword } from "../utils/encryption";
 import { generateVerificationToken } from "../utils/jwt-auth";
 import { sendVerificationEmail } from "../utils/brevo";
+import { verify } from "hono/jwt";
 
 export const userRoute = new Hono<{ Bindings: Bindings }>();
 
@@ -72,5 +73,39 @@ userRoute.post("/signup", async (c) => {
     });
   } catch (error) {
     return c.json({ error: "Signup failed, please try again later" }, 500);
+  }
+});
+
+userRoute.get("/verify-email", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { token } = await c.req.json();
+  try {
+    if (!token) {
+      throw new Error();
+    }
+    const payload = await verify(token, c.env.JWT_SECRET);
+    if (!payload) throw new Error();
+    const email = payload.email as string;
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        isVerified: true,
+      },
+    });
+    return c.json({
+      message: "Email is verified",
+    });
+  } catch (error) {
+    return c.json(
+      {
+        error: "Verification Failed!",
+      },
+      400
+    );
   }
 });
