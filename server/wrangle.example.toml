@@ -5,6 +5,12 @@ compatibility_date = "2024-08-26"
 DATABASE_URL = "your_prisma_accelerate_connection_pooling_url"
 DIRECT_URL = "your_direct_database_url"
 R2_DEV = "your_cdn_link"
+JWT_SECRET = "your_jwt_secret"
+
+# [brevo]
+BREVO_API = "your_brevo_api"
+TEMPLATE_ID = "your_email_template_id"
+VERIFICATION_ROUTE = "your_frontend_route_url_for_email_verification"
 
 [[r2_buckets]]
 binding = "MY_BUCKET"

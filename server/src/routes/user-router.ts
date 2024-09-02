@@ -4,6 +4,8 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { userSchema } from "../schema/zod";
 import { hashPassword } from "../utils/encryption";
+import { generateVerificationToken } from "../utils/jwt-auth";
+import { sendVerificationEmail } from "../utils/brevo";
 
 export const userRoute = new Hono<{ Bindings: Bindings }>();
 
@@ -35,7 +37,11 @@ userRoute.post("/signup", async (c) => {
         email: userInfo.email,
       },
     });
-    if (exist) return c.json({ message: "User with this email already exist" });
+    if (exist)
+      return c.json({ message: "User with this email already exist" }, 409);
+
+    const token = await generateVerificationToken(userInfo.email, c.env);
+    await sendVerificationEmail(userInfo.email, token, c.env);
     const hashedPassword = await hashPassword(userInfo.password);
     const user = await prisma.user.create({
       data: {
@@ -52,7 +58,6 @@ userRoute.post("/signup", async (c) => {
         user.id,
         "profile-img"
       );
-      console.log(imageUrl);
       await prisma.user.update({
         where: {
           id: user.id,
@@ -64,9 +69,8 @@ userRoute.post("/signup", async (c) => {
     }
     return c.json({
       message: "Signed up successfully!",
-      user,
     });
   } catch (error) {
-    return c.json({ error: "An error occured!" }, 500);
+    return c.json({ error: "Signup failed, please try again later" }, 500);
   }
 });
