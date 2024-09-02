@@ -15,3 +15,15 @@ interface User {
   password: string;
   profilePhoto?: File;
 }
+
+interface University {
+  name: string;
+  fee: string;
+  rating: string;
+  topField: string;
+  status: string;
+  campuses: string;
+  mainCampus: string;
+  logo: File;
+  coverPhoto: File;
+}

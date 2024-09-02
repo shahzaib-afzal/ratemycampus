@@ -23,3 +23,16 @@ model User {
   isVerified   Boolean @default(false)
   profilePhoto String?
 }
+
+model University {
+  id         Int    @id @default(autoincrement())
+  name       String
+  fee        String
+  rating     String
+  topField   String
+  status     String
+  campuses   String
+  mainCampus String
+  logo       String
+  coverPhoto String
+}
