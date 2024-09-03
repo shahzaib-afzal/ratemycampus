@@ -4,12 +4,14 @@ import { withAccelerate } from "@prisma/extension-accelerate";
 import { superUserAuth } from "../middlewares/superuser-auth";
 import { uploadImage } from "../utils/cloudflare-r2";
 import { uniSchema } from "../schema/zod";
+import { userAuth } from "../middlewares/user-auth";
 
 export const uniRoute = new Hono<{
   Bindings: Bindings;
+  Variables: Variables;
 }>();
 
-uniRoute.post("/add-university", superUserAuth, async (c) => {
+uniRoute.post("/add", superUserAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -68,5 +70,28 @@ uniRoute.post("/add-university", superUserAuth, async (c) => {
       },
       500
     );
+  }
+});
+
+uniRoute.get("/list", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+  const userInfo = c.get("userInfo");
+  try {
+    const universities = await prisma.university.findMany({
+      cacheStrategy: {
+        ttl: 86400,
+        swr: 300,
+      },
+    });
+    return c.json({
+      userInfo,
+      universities,
+    });
+  } catch (error) {
+    return c.json({
+      error: "An unexpected error occured!",
+    });
   }
 });
