@@ -3,8 +3,8 @@ import { uploadImage } from "../utils/cloudflare-r2";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { userSchema } from "../schema/zod";
-import { hashPassword } from "../utils/encryption";
-import { generateVerificationToken } from "../utils/jwt-auth";
+import { hashPassword, verifyPassword } from "../utils/encryption";
+import { generateToken, generateVerificationToken } from "../utils/jwt-auth";
 import { sendVerificationEmail } from "../utils/brevo";
 import { verify } from "hono/jwt";
 
@@ -106,6 +106,41 @@ userRoute.get("/verify-email", async (c) => {
         error: "Verification Failed!",
       },
       400
+    );
+  }
+});
+
+userRoute.post("/login", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { email, password } = await c.req.json();
+
+  try {
+    const user = await prisma.user.findUniqueOrThrow({
+      where: {
+        email,
+      },
+    });
+    const passMatched = await verifyPassword(password, user.password);
+    if (!passMatched) throw new Error();
+    const token = await generateToken(
+      user.email,
+      user.firstName,
+      user.lastName,
+      c.env
+    );
+    return c.json({
+      message: "Login successful",
+      token,
+    });
+  } catch (error) {
+    return c.json(
+      {
+        error: "Invalid email or password",
+      },
+      401
     );
   }
 });
