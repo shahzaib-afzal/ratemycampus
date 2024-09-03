@@ -7,3 +7,15 @@ export const userSchema = z.object({
   password: z.string().min(8, { message: "Password must be 8 character long" }),
   profilePhoto: z.any().optional(),
 });
+
+export const uniSchema = z.object({
+  name: z.string(),
+  fee: z.string(),
+  topField: z.string(),
+  status: z.string(),
+  mainCampus: z.string(),
+  campuses: z.string(),
+  logo: z.any(),
+  coverPhoto: z.any(),
+  rating: z.string().optional(),
+});
