@@ -28,7 +28,7 @@ model University {
   id         Int    @id @default(autoincrement())
   name       String
   fee        String
-  rating     String
+  rating     String @default("0")
   topField   String
   status     String
   campuses   String
