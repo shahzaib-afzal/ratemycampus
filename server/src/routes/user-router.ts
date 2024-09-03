@@ -56,8 +56,7 @@ userRoute.post("/signup", async (c) => {
       const imageUrl = await uploadImage(
         userInfo.profilePhoto,
         c.env,
-        user.id,
-        "profile-img"
+        `profile-img/${user.firstName}${user.id}`
       );
       await prisma.user.update({
         where: {
