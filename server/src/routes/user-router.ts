@@ -27,7 +27,7 @@ userRoute.post("/signup", async (c) => {
 
   if (!parse.success) {
     const errorMessages = parse.error.errors.map(
-      (err) => `${err.path} is required`
+      (err) => `${err.path} is not valid!`
     );
     return c.json({ error: errorMessages }, 411);
   }
