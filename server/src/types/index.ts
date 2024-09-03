@@ -6,6 +6,16 @@ type Bindings = {
   BREVO_API: string;
   TEMPLATE_ID: number;
   VERIFICATION_ROUTE: string;
+  SUPER_USER: string;
+};
+
+type Variables = {
+  userInfo: {
+    email: string;
+    firstName: string;
+    lastName: string;
+    exp: number;
+  };
 };
 
 interface User {
@@ -19,7 +29,7 @@ interface User {
 interface University {
   name: string;
   fee: string;
-  rating: string;
+  rating?: string;
   topField: string;
   status: string;
   campuses: string;

@@ -6,13 +6,13 @@ DATABASE_URL = "your_prisma_accelerate_connection_pooling_url"
 DIRECT_URL = "your_direct_database_url"
 R2_DEV = "your_cdn_link"
 JWT_SECRET = "your_jwt_secret"
+SUPER_USER = "you_email"
 
 # [brevo]
 BREVO_API = "your_brevo_api"
-TEMPLATE_ID = "your_email_template_id"
+TEMPLATE_ID = "your_brevo_template_id"
 VERIFICATION_ROUTE = "your_frontend_route_url_for_email_verification"
 
 [[r2_buckets]]
 binding = "MY_BUCKET"
 bucket_name = "my-bucket"
-
