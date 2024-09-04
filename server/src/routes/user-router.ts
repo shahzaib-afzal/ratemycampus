@@ -78,7 +78,7 @@ userRoute.get("/verify-email", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const { token } = await c.req.json();
+  const token = c.req.query("token");
   try {
     if (!token) {
       throw new Error();
