@@ -85,7 +85,7 @@ uniRoute.get("/list", userAuth, async (c) => {
         swr: 300,
       },
     });
-    const userInfo = prisma.user.findUnique({
+    const userInfo = await prisma.user.findUnique({
       where: {
         email: user.email,
       },
