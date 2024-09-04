@@ -77,12 +77,24 @@ uniRoute.get("/list", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
-  const userInfo = c.get("userInfo");
+  const user = c.get("userInfo");
   try {
     const universities = await prisma.university.findMany({
       cacheStrategy: {
         ttl: 86400,
         swr: 300,
+      },
+    });
+    const userInfo = await prisma.user.findUnique({
+      where: {
+        email: user.email,
+      },
+      select: {
+        id: true,
+        fullName: true,
+        isVerified: true,
+        email: true,
+        profilePhoto: true,
       },
     });
     return c.json({

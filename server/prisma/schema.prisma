@@ -15,24 +15,35 @@ datasource db {
 }
 
 model User {
-  id           Int     @id @default(autoincrement())
-  email        String  @unique
-  firstName    String
-  lastName     String
+  id           Int      @id @default(autoincrement())
+  fullName     String
+  email        String   @unique
   password     String
-  isVerified   Boolean @default(false)
+  isVerified   Boolean  @default(false)
   profilePhoto String?
+  ratings      Rating[]
 }
 
 model University {
-  id         Int    @id @default(autoincrement())
+  id         Int      @id @default(autoincrement())
   name       String
   fee        String
-  rating     String @default("0")
   topField   String
   status     String
   campuses   String
   mainCampus String
   logo       String
   coverPhoto String
+  ratings    Rating[]
+}
+
+model Rating {
+  id           Int        @id @default(autoincrement())
+  rating       Float
+  userId       Int
+  universityId Int
+  User         User       @relation(fields: [userId], references: [id])
+  University   University @relation(fields: [universityId], references: [id])
+
+  @@unique([userId, universityId])
 }

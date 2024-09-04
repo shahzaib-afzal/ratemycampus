@@ -18,8 +18,7 @@ userRoute.post("/signup", async (c) => {
   const formData = await c.req.formData();
   const userInfo: User = {
     email: formData.get("email") as string,
-    firstName: formData.get("firstName") as string,
-    lastName: formData.get("lastName") as string,
+    fullName: formData.get("fullname") as string,
     password: formData.get("password") as string,
     profilePhoto: formData.get("image") as File,
   };
@@ -47,8 +46,7 @@ userRoute.post("/signup", async (c) => {
     const user = await prisma.user.create({
       data: {
         email: userInfo.email,
-        firstName: userInfo.firstName,
-        lastName: userInfo.lastName,
+        fullName: userInfo.fullName,
         password: hashedPassword,
       },
     });
@@ -56,7 +54,7 @@ userRoute.post("/signup", async (c) => {
       const imageUrl = await uploadImage(
         userInfo.profilePhoto,
         c.env,
-        `profile-img/${user.firstName}${user.id}`
+        `profile-img/${user.fullName.split(" ")[0]}${user.id}`
       );
       await prisma.user.update({
         where: {
@@ -80,7 +78,7 @@ userRoute.get("/verify-email", async (c) => {
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const { token } = await c.req.json();
+  const token = c.req.query("token");
   try {
     if (!token) {
       throw new Error();
@@ -124,12 +122,7 @@ userRoute.post("/login", async (c) => {
     });
     const passMatched = await verifyPassword(password, user.password);
     if (!passMatched) throw new Error();
-    const token = await generateToken(
-      user.email,
-      user.firstName,
-      user.lastName,
-      c.env
-    );
+    const token = await generateToken(user.email, user.fullName, c.env);
     return c.json({
       message: "Login successful",
       token,

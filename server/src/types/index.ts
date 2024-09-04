@@ -12,16 +12,14 @@ type Bindings = {
 type Variables = {
   userInfo: {
     email: string;
-    firstName: string;
-    lastName: string;
+    fullName: string;
     exp: number;
   };
 };
 
 interface User {
   email: string;
-  firstName: string;
-  lastName: string;
+  fullName: string;
   password: string;
   profilePhoto?: File;
 }
@@ -29,7 +27,6 @@ interface User {
 interface University {
   name: string;
   fee: string;
-  rating?: string;
   topField: string;
   status: string;
   campuses: string;
