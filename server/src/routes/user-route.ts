@@ -7,8 +7,12 @@ import { hashPassword, verifyPassword } from "../utils/encryption";
 import { generateToken, generateVerificationToken } from "../utils/jwt-auth";
 import { sendVerificationEmail } from "../utils/brevo";
 import { verify } from "hono/jwt";
+import { userAuth } from "../middlewares/user-auth";
 
-export const userRoute = new Hono<{ Bindings: Bindings }>();
+export const userRoute = new Hono<{
+  Bindings: Bindings;
+  Variables: Variables;
+}>();
 
 userRoute.post("/signup", async (c) => {
   const prisma = new PrismaClient({
@@ -134,5 +138,31 @@ userRoute.post("/login", async (c) => {
       },
       401
     );
+  }
+});
+
+userRoute.post("/rating", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { rating, universityId, userId } = await c.req.json();
+
+  try {
+    const rate = await prisma.rating.create({
+      data: {
+        rating,
+        universityId,
+        userId,
+      },
+    });
+    return c.json({
+      message: "Rated Successfully!",
+      rate,
+    });
+  } catch (error) {
+    return c.json({
+      error: "Cannot rate again!",
+    });
   }
 });
