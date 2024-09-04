@@ -3,7 +3,6 @@ CREATE TABLE "University" (
     "id" SERIAL NOT NULL,
     "name" TEXT NOT NULL,
     "fee" TEXT NOT NULL,
-    "rating" TEXT NOT NULL,
     "topField" TEXT NOT NULL,
     "status" TEXT NOT NULL,
     "campuses" TEXT NOT NULL,

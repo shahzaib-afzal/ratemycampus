@@ -1,12 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the column `rating` on the `University` table. All the data in the column will be lost.
-
-*/
--- AlterTable
-ALTER TABLE "University" DROP COLUMN "rating";
-
 -- CreateTable
 CREATE TABLE "Rating" (
     "id" SERIAL NOT NULL,
