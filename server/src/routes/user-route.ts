@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { uploadImage } from "../utils/cloudflare-r2";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { userSchema } from "../schema/zod";
+import { postSchema, userSchema } from "../schema/zod";
 import { hashPassword, verifyPassword } from "../utils/encryption";
 import { generateToken, generateVerificationToken } from "../utils/jwt-auth";
 import { sendVerificationEmail } from "../utils/brevo";
@@ -166,5 +166,52 @@ userRoute.post("/rating", userAuth, async (c) => {
     return c.json({
       error: "Cannot rate again!",
     });
+  }
+});
+
+userRoute.post("/post", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const formData = await c.req.formData();
+
+  const post: Post = {
+    content: formData.get("content") as string,
+    universityId: Number(formData.get("uniid") as string),
+    userId: Number(formData.get("userid") as string),
+    photo: formData.get("photo") as File,
+  };
+
+  const parse = postSchema.safeParse(post);
+  if (!parse.success) {
+    const errorMessages = parse.error.errors.map((err) => err.message);
+    return c.json({ error: errorMessages }, 411);
+  }
+  try {
+    let photoUrl = null;
+    if (post?.photo?.type.includes("image")) {
+      photoUrl = await uploadImage(
+        post.photo,
+        c.env,
+        `posts/post${post.userId}`
+      );
+    }
+
+    const userPost = await prisma.post.create({
+      data: {
+        content: post.content,
+        universityId: post.universityId,
+        userId: post.userId,
+        photo: photoUrl,
+      },
+    });
+
+    return c.json({
+      message: "Posted Successfully!",
+      userPost,
+    });
+  } catch (error) {
+    return c.json({ error }, 400);
   }
 });

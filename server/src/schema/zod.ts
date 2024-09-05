@@ -17,3 +17,7 @@ export const uniSchema = z.object({
   logo: z.any(),
   coverPhoto: z.any(),
 });
+
+export const postSchema = z.object({
+  content: z.string().max(500, "Post cannot exceed 500 characters"),
+});

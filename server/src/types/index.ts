@@ -34,3 +34,10 @@ interface University {
   logo: File;
   coverPhoto: File;
 }
+
+interface Post {
+  content: string;
+  universityId: number;
+  userId: number;
+  photo?: File;
+}
