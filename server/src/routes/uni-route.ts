@@ -107,3 +107,39 @@ uniRoute.get("/list", userAuth, async (c) => {
     });
   }
 });
+
+uniRoute.get("/get-rating", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { universityId } = await c.req.json();
+  try {
+    const rating = await prisma.rating.findMany({
+      cacheStrategy: {
+        ttl: 43200,
+        swr: 300,
+      },
+      where: {
+        universityId,
+      },
+      select: {
+        rating: true,
+      },
+    });
+    if (rating.length === 0) {
+      return c.json({
+        averageRating: 0,
+      });
+    }
+    const averageRating =
+      rating.reduce((sum, val) => sum + val.rating, 0) / rating.length;
+    return c.json({
+      averageRating,
+    });
+  } catch (error) {
+    return c.json({
+      error: "An unexpected error occurred while fetching the rating.",
+    });
+  }
+});
