@@ -138,8 +138,50 @@ uniRoute.get("/get-rating", userAuth, async (c) => {
       averageRating,
     });
   } catch (error) {
-    return c.json({
-      error: "An unexpected error occurred while fetching the rating.",
+    return c.json(
+      {
+        error: "An unexpected error occurred while fetching the rating.",
+      },
+      500
+    );
+  }
+});
+
+uniRoute.get("/show-posts", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { universityId } = await c.req.json();
+
+  try {
+    const posts = await prisma.post.findMany({
+      cacheStrategy: {
+        ttl: 3600,
+        swr: 600,
+      },
+      where: {
+        universityId,
+      },
+      select: {
+        content: true,
+        photo: true,
+        User: {
+          select: {
+            fullName: true,
+          },
+        },
+      },
     });
+    return c.json({
+      posts,
+    });
+  } catch (error) {
+    return c.json(
+      {
+        error: "Failed to fetch posts for the given university",
+      },
+      500
+    );
   }
 });
