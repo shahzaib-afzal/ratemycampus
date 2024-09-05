@@ -181,23 +181,29 @@ userRoute.post("/post", userAuth, async (c) => {
     return c.json({ error: errorMessages }, 411);
   }
   try {
-    let photoUrl = null;
-    if (post?.photo?.type.includes("image")) {
-      photoUrl = await uploadImage(
-        post.photo,
-        c.env,
-        `posts/post${post.userId}`
-      );
-    }
-
-    const userPost = await prisma.post.create({
+    let userPost = await prisma.post.create({
       data: {
         content: post.content,
         universityId: post.universityId,
         userId: post.userId,
-        photo: photoUrl,
       },
     });
+
+    if (post?.photo?.type.includes("image")) {
+      const photoUrl = await uploadImage(
+        post.photo,
+        c.env,
+        `posts/post${userPost.id}`
+      );
+      userPost = await prisma.post.update({
+        where: {
+          id: userPost.id,
+        },
+        data: {
+          photo: photoUrl,
+        },
+      });
+    }
 
     return c.json({
       message: "Posted Successfully!",
