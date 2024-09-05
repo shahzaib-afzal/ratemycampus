@@ -22,6 +22,7 @@ model User {
   isVerified   Boolean  @default(false)
   profilePhoto String?
   ratings      Rating[]
+  posts        Post[]
 }
 
 model University {
@@ -35,6 +36,7 @@ model University {
   logo       String
   coverPhoto String
   ratings    Rating[]
+  posts      Post[]
 }
 
 model Rating {
@@ -46,4 +48,14 @@ model Rating {
   University   University @relation(fields: [universityId], references: [id])
 
   @@unique([userId, universityId])
+}
+
+model Post {
+  id           Int        @id @default(autoincrement())
+  content      String
+  photo        String?
+  userId       Int
+  universityId Int
+  User         User       @relation(fields: [userId], references: [id])
+  University   University @relation(fields: [universityId], references: [id])
 }
