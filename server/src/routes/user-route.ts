@@ -47,9 +47,9 @@ userRoute.post("/signup", async (c) => {
     const token = await generateVerificationToken(userInfo.email, c.env);
     await sendVerificationEmail(userInfo.email, token, c.env);
     const hashedPassword = await hashPassword(userInfo.password);
-
+    let imageUrl = null;
     if (userInfo?.profilePhoto?.type.includes("image")) {
-      const imageUrl = await uploadImage(
+      imageUrl = await uploadImage(
         userInfo.profilePhoto,
         c.env,
         `profile-img/${userInfo.email}`
@@ -60,14 +60,6 @@ userRoute.post("/signup", async (c) => {
           fullName: userInfo.fullName,
           password: hashedPassword,
           profilePhoto: imageUrl,
-        },
-      });
-    } else {
-      await prisma.user.create({
-        data: {
-          email: userInfo.email,
-          fullName: userInfo.fullName,
-          password: hashedPassword,
         },
       });
     }
