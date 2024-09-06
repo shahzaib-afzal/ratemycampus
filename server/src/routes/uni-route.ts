@@ -167,8 +167,10 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
         universityId,
       },
       select: {
+        id: true,
         content: true,
         photo: true,
+        userId: true,
         User: {
           select: {
             fullName: true,
