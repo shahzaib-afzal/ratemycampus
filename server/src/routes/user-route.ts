@@ -213,3 +213,29 @@ userRoute.post("/post", userAuth, async (c) => {
     return c.json({ error }, 400);
   }
 });
+
+userRoute.delete("/delete-post", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { userId, postId } = await c.req.json();
+  try {
+    const post = await prisma.post.findUniqueOrThrow({
+      where: {
+        id: postId,
+      },
+    });
+    if (post.userId !== userId) return c.json({ message: "Not Allowed!" }, 404);
+    await prisma.post.delete({
+      where: {
+        id: postId,
+      },
+    });
+    return c.json({
+      message: "Post deleted successfully!",
+    });
+  } catch (error) {
+    return c.json({ error: "Something went wrong!" }, 400);
+  }
+});
