@@ -153,6 +153,9 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
   }).$extends(withAccelerate());
 
   const { universityId } = await c.req.json();
+  const page = Number(c.req.query("page"));
+  const pageSize = 10;
+  const skip = (page - 1) * pageSize;
 
   try {
     const posts = await prisma.post.findMany({
@@ -172,6 +175,8 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
           },
         },
       },
+      take: pageSize,
+      skip: skip,
     });
     return c.json({
       posts,
