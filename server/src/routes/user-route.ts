@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { uploadImage } from "../utils/cloudflare-r2";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { postSchema, userSchema } from "../schema/zod";
+import { commentSchema, postSchema, userSchema } from "../schema/zod";
 import { hashPassword, verifyPassword } from "../utils/encryption";
 import { generateToken, generateVerificationToken } from "../utils/jwt-auth";
 import { sendVerificationEmail } from "../utils/brevo";
@@ -251,5 +251,35 @@ userRoute.delete("/delete-post", userAuth, async (c) => {
     });
   } catch (error) {
     return c.json({ error: "Something went wrong!" }, 400);
+  }
+});
+
+userRoute.post("/comment", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { comment, postId, userId } = await c.req.json();
+
+  const parse = commentSchema.safeParse({ comment, postId, userId });
+  if (!parse.success) {
+    const errorMessages = parse.error.errors.map((err) => err.message);
+    return c.json({ error: errorMessages }, 411);
+  }
+
+  try {
+    const postedComment = await prisma.comment.create({
+      data: {
+        comment: comment,
+        userId: userId,
+        postId: postId,
+      },
+    });
+    return c.json({
+      message: "Comment posted successfully!",
+      postedComment,
+    });
+  } catch (error) {
+    return c.json({ error: "Unable to post comment" }, 500);
   }
 });
