@@ -24,3 +24,9 @@ export const postSchema = z.object({
   userId: z.number(),
   photo: z.any().optional(),
 });
+
+export const commentSchema = z.object({
+  comment: z.string().max(150, "Comment cannot exceed 150 characters"),
+  userId: z.number(),
+  postId: z.number(),
+});

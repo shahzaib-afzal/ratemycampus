@@ -41,3 +41,9 @@ interface Post {
   userId: number;
   photo?: File;
 }
+
+interface Comment {
+  comment: string;
+  userId: number;
+  postId: number;
+}
