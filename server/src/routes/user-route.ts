@@ -187,6 +187,13 @@ userRoute.post("/post", userAuth, async (c) => {
         universityId: post.universityId,
         userId: post.userId,
       },
+      include: {
+        User: {
+          select: {
+            fullName: true,
+          },
+        },
+      },
     });
 
     if (post?.photo?.type.includes("image")) {
@@ -201,6 +208,13 @@ userRoute.post("/post", userAuth, async (c) => {
         },
         data: {
           photo: photoUrl,
+        },
+        include: {
+          User: {
+            select: {
+              fullName: true,
+            },
+          },
         },
       });
     }
