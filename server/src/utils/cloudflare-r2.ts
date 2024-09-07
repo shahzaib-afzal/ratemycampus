@@ -8,3 +8,12 @@ export const uploadImage = async (
   const imageUrl = `${env.R2_DEV}/${fileName}`;
   return imageUrl;
 };
+
+export const deleteImage = async (fileName: string, env: Bindings) => {
+  try {
+    await env.RMC_BUCKET.delete(fileName);
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
