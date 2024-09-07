@@ -170,8 +170,8 @@ userRoute.post("/post", userAuth, async (c) => {
 
   const post: Post = {
     content: formData.get("content") as string,
-    universityId: Number(formData.get("uniid") as string),
-    userId: Number(formData.get("userid") as string),
+    universityId: Number(formData.get("uniid")),
+    userId: Number(formData.get("userid")),
     photo: formData.get("photo") as File,
   };
 

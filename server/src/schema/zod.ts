@@ -20,4 +20,7 @@ export const uniSchema = z.object({
 
 export const postSchema = z.object({
   content: z.string().max(500, "Post cannot exceed 500 characters"),
+  universityId: z.number(),
+  userId: z.number(),
+  photo: z.any().optional(),
 });
