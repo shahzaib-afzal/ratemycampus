@@ -1,5 +1,5 @@
 import { Hono } from "hono";
-import { uploadImage } from "../utils/cloudflare-r2";
+import { deleteImage, uploadImage } from "../utils/cloudflare-r2";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { commentSchema, postSchema, userSchema } from "../schema/zod";
@@ -241,6 +241,11 @@ userRoute.delete("/delete-post", userAuth, async (c) => {
       },
     });
     if (post.userId !== userId) return c.json({ message: "Not Allowed!" }, 404);
+    if (post.photo) {
+      console.log("Deleting...");
+      const isDeleted = await deleteImage(`posts/post${post.id}`, c.env);
+      if (!isDeleted) throw new Error();
+    }
     await prisma.post.delete({
       where: {
         id: postId,
@@ -250,7 +255,7 @@ userRoute.delete("/delete-post", userAuth, async (c) => {
       message: "Post deleted successfully!",
     });
   } catch (error) {
-    return c.json({ error: "Something went wrong!" }, 400);
+    return c.json({ error: "Please try again later" }, 400);
   }
 });
 
