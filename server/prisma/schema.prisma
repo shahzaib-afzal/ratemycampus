@@ -46,7 +46,7 @@ model Rating {
   userId       Int
   universityId Int
   User         User       @relation(fields: [userId], references: [id])
-  University   University @relation(fields: [universityId], references: [id])
+  University   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
 
   @@unique([userId, universityId])
 }
@@ -58,7 +58,7 @@ model Post {
   userId       Int
   universityId Int
   User         User       @relation(fields: [userId], references: [id])
-  University   University @relation(fields: [universityId], references: [id])
+  University   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
   Comment      Comment[]
 }
 
@@ -68,5 +68,5 @@ model Comment {
   userId  Int
   postId  Int
   User    User   @relation(fields: [userId], references: [id])
-  Post    Post   @relation(fields: [postId], references: [id])
+  Post    Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
 }
