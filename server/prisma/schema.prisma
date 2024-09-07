@@ -15,14 +15,15 @@ datasource db {
 }
 
 model User {
-  id           Int      @id @default(autoincrement())
+  id           Int       @id @default(autoincrement())
   fullName     String
-  email        String   @unique
+  email        String    @unique
   password     String
-  isVerified   Boolean  @default(false)
+  isVerified   Boolean   @default(false)
   profilePhoto String?
   ratings      Rating[]
   posts        Post[]
+  Comment      Comment[]
 }
 
 model University {
@@ -58,4 +59,14 @@ model Post {
   universityId Int
   User         User       @relation(fields: [userId], references: [id])
   University   University @relation(fields: [universityId], references: [id])
+  Comment      Comment[]
+}
+
+model Comment {
+  id      Int    @id @default(autoincrement())
+  comment String
+  userId  Int
+  postId  Int
+  User    User   @relation(fields: [userId], references: [id])
+  Post    Post   @relation(fields: [postId], references: [id])
 }
