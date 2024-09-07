@@ -159,13 +159,8 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
 
   try {
     const posts = await prisma.post.findMany({
-      cacheStrategy: {
-        ttl: 3600,
-        swr: 600,
-      },
-      where: {
-        universityId,
-      },
+      take: pageSize,
+      skip: skip,
       select: {
         id: true,
         content: true,
@@ -177,8 +172,16 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
           },
         },
       },
-      take: pageSize,
-      skip: skip,
+      where: {
+        universityId,
+      },
+      orderBy: {
+        id: "desc",
+      },
+      cacheStrategy: {
+        ttl: 60,
+        swr: 5,
+      },
     });
     return c.json({
       posts,
