@@ -195,3 +195,51 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
     );
   }
 });
+
+uniRoute.get("/show-comments", userAuth, async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { postId } = await c.req.json();
+  const page = Number(c.req.query("page"));
+  const pageSize = 10;
+  const skip = (page - 1) * pageSize;
+
+  try {
+    const comments = await prisma.comment.findMany({
+      take: pageSize,
+      skip: skip,
+      select: {
+        id: true,
+        comment: true,
+        userId: true,
+        User: {
+          select: {
+            fullName: true,
+          },
+        },
+      },
+      where: {
+        postId: postId,
+      },
+      orderBy: {
+        id: "desc",
+      },
+      cacheStrategy: {
+        ttl: 30,
+        swr: 5,
+      },
+    });
+    return c.json({
+      comments,
+    });
+  } catch (error) {
+    return c.json(
+      {
+        error: "Failed to fetch comments!",
+      },
+      503
+    );
+  }
+});
