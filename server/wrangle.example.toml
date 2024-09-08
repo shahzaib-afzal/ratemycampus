@@ -12,6 +12,8 @@ SUPER_USER = "you_email"
 BREVO_API = "your_brevo_api"
 TEMPLATE_ID = "your_brevo_template_id"
 VERIFICATION_ROUTE = "your_frontend_route_url_for_email_verification"
+RESET_PASSWORD_ROUTE = "your_frontend_route_url_for_reset-password"
+RESET_TEMPLATE = "your_brevo_reset-password_template_id"
 
 [[r2_buckets]]
 binding = "MY_BUCKET"

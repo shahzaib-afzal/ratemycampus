@@ -2,10 +2,15 @@ import { Hono } from "hono";
 import { deleteImage, uploadImage } from "../utils/cloudflare-r2";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import { commentSchema, postSchema, userSchema } from "../schema/zod";
+import {
+  commentSchema,
+  passwordSchema,
+  postSchema,
+  userSchema,
+} from "../schema/zod";
 import { hashPassword, verifyPassword } from "../utils/encryption";
 import { generateToken, generateVerificationToken } from "../utils/jwt-auth";
-import { sendVerificationEmail } from "../utils/brevo";
+import { resetPasswordEmail, sendVerificationEmail } from "../utils/brevo";
 import { verify } from "hono/jwt";
 import { userAuth } from "../middlewares/user-auth";
 
@@ -284,5 +289,36 @@ userRoute.post("/comment", userAuth, async (c) => {
     });
   } catch (error) {
     return c.json({ error: "Unable to post comment" }, 500);
+  }
+});
+
+userRoute.post("/request-password", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const { email } = await c.req.json();
+  try {
+    await prisma.user.findUniqueOrThrow({
+      where: {
+        email: email,
+      },
+      select: {
+        id: true,
+      },
+    });
+    const token = await generateVerificationToken(email, c.env);
+    await resetPasswordEmail(email, token, c.env);
+    return c.json({
+      message:
+        "Password reset email has been sent successfully! Please check your email for further instructions.",
+    });
+  } catch (error) {
+    return c.json(
+      {
+        error: "User with this email doesn't exist",
+      },
+      404
+    );
   }
 });

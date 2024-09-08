@@ -7,6 +7,8 @@ type Bindings = {
   TEMPLATE_ID: number;
   VERIFICATION_ROUTE: string;
   SUPER_USER: string;
+  RESET_PASSWORD_ROUTE: string;
+  RESET_TEMPLATE: number;
 };
 
 type Variables = {
