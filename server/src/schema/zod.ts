@@ -32,3 +32,7 @@ export const commentSchema = z.object({
   userId: z.number({ message: "User ID must be a number!" }),
   postId: z.number({ message: "Post ID must be a number!" }),
 });
+
+export const passwordSchema = z
+  .string({ message: "Password is required" })
+  .min(8, { message: "Password must be 8 character long" });
