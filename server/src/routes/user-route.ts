@@ -120,10 +120,21 @@ userRoute.post("/login", async (c) => {
       where: {
         email,
       },
+      select: {
+        id: true,
+        email: true,
+        fullName: true,
+        password: true,
+      },
     });
     const passMatched = await verifyPassword(password, user.password);
     if (!passMatched) throw new Error();
-    const token = await generateToken(user.email, user.fullName, c.env);
+    const token = await generateToken(
+      user.id,
+      user.email,
+      user.fullName,
+      c.env
+    );
     return c.json({
       message: "Login successful",
       token,
