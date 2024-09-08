@@ -5,9 +5,7 @@ import { uniRoute } from "./routes/uni-route";
 const app = new Hono();
 
 app.get("/", async (c) => {
-  return c.json({
-    message: "Worker is up",
-  });
+  return c.text("Worker 1.0 (Test) is live");
 });
 
 app.route("/api/v1/user/", userRoute);
