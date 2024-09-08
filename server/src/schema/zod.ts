@@ -3,7 +3,9 @@ import { z } from "zod";
 export const userSchema = z.object({
   email: z.string().email({ message: "Invalid email address" }),
   fullName: z.string({ message: "Fullname is required" }),
-  password: z.string().min(8, { message: "Password must be 8 character long" }),
+  password: z
+    .string({ message: "Password is required" })
+    .min(8, { message: "Password must be 8 character long" }),
   profilePhoto: z.any().optional(),
 });
 
