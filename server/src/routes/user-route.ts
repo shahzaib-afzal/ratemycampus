@@ -322,3 +322,45 @@ userRoute.post("/request-password", async (c) => {
     );
   }
 });
+
+userRoute.post("/reset-password", async (c) => {
+  const prisma = new PrismaClient({
+    datasourceUrl: c.env.DATABASE_URL,
+  }).$extends(withAccelerate());
+
+  const token = c.req.query("token");
+  const { password } = await c.req.json();
+
+  const parse = passwordSchema.safeParse(password);
+  if (!parse.success) {
+    const errorMessages = parse.error.errors.map((err) => err.message);
+    return c.json({ error: errorMessages }, 411);
+  }
+  try {
+    if (!token) {
+      throw new Error();
+    }
+    const payload = await verify(token, c.env.JWT_SECRET);
+    if (!payload) throw new Error();
+    const email = payload.email as string;
+    const hashedPassword = await hashPassword(password);
+    await prisma.user.update({
+      where: {
+        email,
+      },
+      data: {
+        password: hashedPassword,
+      },
+    });
+    return c.json({
+      message: "Password is updated!",
+    });
+  } catch (error) {
+    return c.json(
+      {
+        error: "Failed to update password, Please try again later!",
+      },
+      400
+    );
+  }
+});
