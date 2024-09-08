@@ -52,15 +52,15 @@ userRoute.post("/signup", async (c) => {
         c.env,
         `profile-img/${userInfo.email}`
       );
-      await prisma.user.create({
-        data: {
-          email: userInfo.email,
-          fullName: userInfo.fullName,
-          password: hashedPassword,
-          profilePhoto: imageUrl,
-        },
-      });
     }
+    await prisma.user.create({
+      data: {
+        email: userInfo.email,
+        fullName: userInfo.fullName,
+        password: hashedPassword,
+        profilePhoto: imageUrl,
+      },
+    });
     return c.json({
       message: "Signed up successfully!",
     });
