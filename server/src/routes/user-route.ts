@@ -29,9 +29,7 @@ userRoute.post("/signup", async (c) => {
   const parse = userSchema.safeParse(userInfo);
 
   if (!parse.success) {
-    const errorMessages = parse.error.errors.map(
-      (err) => `${err.path} is not valid!`
-    );
+    const errorMessages = parse.error.errors.map((err) => err.message);
     return c.json({ error: errorMessages }, 411);
   }
 

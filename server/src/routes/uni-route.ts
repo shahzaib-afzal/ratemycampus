@@ -29,9 +29,7 @@ uniRoute.post("/add", superUserAuth, async (c) => {
 
   const parse = uniSchema.safeParse(universityInfo);
   if (!parse.success) {
-    const errorMessages = parse.error.errors.map(
-      (err) => `${err.path} is not valid!`
-    );
+    const errorMessages = parse.error.errors.map((err) => err.message);
     return c.json({ error: errorMessages }, 411);
   }
 
