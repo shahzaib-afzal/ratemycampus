@@ -13,6 +13,7 @@ type Bindings = {
 
 type Variables = {
   userInfo: {
+    id: number;
     email: string;
     fullName: string;
     exp: number;

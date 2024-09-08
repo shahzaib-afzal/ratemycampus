@@ -10,11 +10,13 @@ export const generateVerificationToken = async (
 };
 
 export const generateToken = async (
+  id: number,
   email: string,
   fullName: string,
   env: Bindings
 ) => {
   const payload = {
+    id,
     email,
     fullName,
     exp: Math.floor(Date.now() / 1000) + 7 * 24 * 60 * 60, // Expiration time in seconds (7 days)
