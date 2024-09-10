@@ -19,34 +19,3 @@ type Variables = {
     exp: number;
   };
 };
-
-interface User {
-  email: string;
-  fullName: string;
-  password: string;
-  profilePhoto?: File;
-}
-
-interface University {
-  name: string;
-  fee: string;
-  topField: string;
-  status: string;
-  campuses: string;
-  mainCampus: string;
-  logo: File;
-  coverPhoto: File;
-}
-
-interface Post {
-  content: string;
-  universityId: number;
-  userId: number;
-  photo?: File;
-}
-
-interface Comment {
-  comment: string;
-  userId: number;
-  postId: number;
-}

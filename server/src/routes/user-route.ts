@@ -2,17 +2,19 @@ import { Hono } from "hono";
 import { deleteImage, uploadImage } from "../utils/cloudflare-r2";
 import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
-import {
-  commentSchema,
-  passwordSchema,
-  postSchema,
-  userSchema,
-} from "../schema/zod";
 import { hashPassword, verifyPassword } from "../utils/encryption";
 import { generateToken, generateVerificationToken } from "../utils/jwt-auth";
 import { resetPasswordEmail, sendVerificationEmail } from "../utils/brevo";
 import { verify } from "hono/jwt";
 import { userAuth } from "../middlewares/user-auth";
+import {
+  postSchema,
+  userSchema,
+  commentSchema,
+  passwordSchema,
+  User,
+  Post,
+} from "ratemypackage";
 
 export const userRoute = new Hono<{
   Bindings: Bindings;
