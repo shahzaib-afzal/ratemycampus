@@ -3,8 +3,8 @@ import { PrismaClient } from "@prisma/client/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { superUserAuth } from "../middlewares/superuser-auth";
 import { uploadImage } from "../utils/cloudflare-r2";
-import { uniSchema } from "../schema/zod";
 import { userAuth } from "../middlewares/user-auth";
+import { uniSchema, University } from "ratemypackage";
 
 export const uniRoute = new Hono<{
   Bindings: Bindings;
