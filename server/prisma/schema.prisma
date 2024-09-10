@@ -53,7 +53,7 @@ model Rating {
 
 model Post {
   id           Int        @id @default(autoincrement())
-  content      String
+  content      String?
   photo        String?
   userId       Int
   universityId Int
