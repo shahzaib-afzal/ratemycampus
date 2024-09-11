@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import Navbar from "../@/components/ui/Navbar";
 import { BackgroundLines } from "../@/components/ui/background-lines";
+import { TextGenerateEffect } from "@/@/components/ui/text-generate-effect";
 
 export default function LandingPage() {
   return (
@@ -26,9 +27,11 @@ export default function LandingPage() {
 
             <main className="text-center">
               <h1 className="text-5xl md:text-7xl font-bold mb-4 leading-tight">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-500">
-                  Discover, Review, and Elevate
-                </span>{" "}
+                <TextGenerateEffect
+                  words="Discover, Review, and Elevate"
+                  className="text-5xl md:text-7xl font-bold mb-4 leading-tight"
+                  gradientClassName="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-yellow-500"
+                />
                 <br />
                 <span className="text-white">Your University Experience!</span>
               </h1>

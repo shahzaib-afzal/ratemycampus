@@ -2,7 +2,7 @@ import { GraduationCap } from "lucide-react";
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-4 mx-8 bg-[#050520]">
+    <nav className="sticky top-0 z-50 flex items-center justify-between px-6 py-6 mx-8 bg-[#050520]">
       <div className="flex items-center space-x-2">
         <GraduationCap className="h-8 w-8" />
         <span className="text-xl font-bold text-white">RateMyCampus</span>
