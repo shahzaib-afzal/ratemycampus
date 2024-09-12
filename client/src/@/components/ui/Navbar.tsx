@@ -5,8 +5,10 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 flex items-center justify-between bg-[#050520] px-2 py-6 sm:px-16">
       <div className="flex items-center space-x-2">
-        <GraduationCap className="h-8 w-8" />
-        <span className="text-xl font-bold text-white">RateMyCampus</span>
+        <GraduationCap className="h-8 w-8 cursor-pointer" />
+        <span className="cursor-pointer text-xl font-bold text-white">
+          RateMyCampus
+        </span>
       </div>
       <div className="hidden items-center space-x-6 sm:flex">
         <div className="cursor-pointer text-sm text-gray-300 transition-colors hover:text-white">
