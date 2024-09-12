@@ -1,4 +1,5 @@
 import { GraduationCap } from "lucide-react";
+import { HamburgerMenu } from "../hamburger-menu";
 
 export default function Navbar() {
   return (
@@ -21,6 +22,7 @@ export default function Navbar() {
           Join Now
         </div>
       </div>
+      <HamburgerMenu />
     </nav>
   );
 }
