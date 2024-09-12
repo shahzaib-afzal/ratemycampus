@@ -9,6 +9,46 @@ import {
 import Navbar from "../@/components/ui/Navbar";
 import { BackgroundLines } from "../@/components/ui/background-lines";
 import { TextGenerateEffect } from "@/@/components/ui/text-generate-effect";
+import { HoverEffect } from "@/@/components/ui/card-hover-effect";
+
+const features = [
+  {
+    icon: <Search className="text-purple-400" />,
+    title: "Campus Explorer",
+    description:
+      "Search and compare universities based on real student reviews and ratings.",
+  },
+  {
+    icon: <Star className="text-yellow-400" />,
+    title: "Review & Rate",
+    description:
+      "Share your campus experience and help others make informed decisions.",
+  },
+  {
+    icon: <Users className="text-green-400" />,
+    title: "Community Forum",
+    description:
+      "Connect with fellow students, ask questions, and share insights.",
+  },
+  {
+    icon: <BarChart2 className="text-blue-400" />,
+    title: "Data Insights",
+    description:
+      "Access detailed analytics and trends about universities and campus life.",
+  },
+  {
+    icon: <MessageSquare className="text-pink-400" />,
+    title: "Q&A Platform",
+    description:
+      "Get your university-related questions answered by current students and alumni.",
+  },
+  {
+    icon: <Award className="text-orange-400" />,
+    title: "University Rankings",
+    description:
+      "Explore crowd-sourced rankings based on various factors and student experiences.",
+  },
+];
 
 export default function LandingPage() {
   return (
@@ -43,7 +83,9 @@ export default function LandingPage() {
         </div>
       </BackgroundLines>
 
-      {/* Dashboard Preview and Features Section */}
+      {/* Dashboard Preview*/}
+
+      {/* Features Section */}
       <div className="bg-[#050520] py-20">
         <div className="container mx-auto px-4">
           <div className="mb-16 text-center">
@@ -56,61 +98,8 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* Dashboard Preview */}
-          {/* Removed Image component */}
-
           {/* Features Grid */}
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            <div className="rounded-lg bg-[#1A1B26] p-6">
-              <Search className="mb-4 h-10 w-10 text-purple-400" />
-              <h3 className="mb-2 text-xl font-semibold">Campus Explorer</h3>
-              <p className="text-gray-400">
-                Search and compare universities based on real student reviews
-                and ratings.
-              </p>
-            </div>
-            <div className="rounded-lg bg-[#1A1B26] p-6">
-              <Star className="mb-4 h-10 w-10 text-yellow-400" />
-              <h3 className="mb-2 text-xl font-semibold">Review &amp; Rate</h3>
-              <p className="text-gray-400">
-                Share your campus experience and help others make informed
-                decisions.
-              </p>
-            </div>
-            <div className="rounded-lg bg-[#1A1B26] p-6">
-              <Users className="mb-4 h-10 w-10 text-green-400" />
-              <h3 className="mb-2 text-xl font-semibold">Community Forum</h3>
-              <p className="text-gray-400">
-                Connect with fellow students, ask questions, and share insights.
-              </p>
-            </div>
-            <div className="rounded-lg bg-[#1A1B26] p-6">
-              <BarChart2 className="mb-4 h-10 w-10 text-blue-400" />
-              <h3 className="mb-2 text-xl font-semibold">Data Insights</h3>
-              <p className="text-gray-400">
-                Access detailed analytics and trends about universities and
-                campus life.
-              </p>
-            </div>
-            <div className="rounded-lg bg-[#1A1B26] p-6">
-              <MessageSquare className="mb-4 h-10 w-10 text-pink-400" />
-              <h3 className="mb-2 text-xl font-semibold">Q&amp;A Platform</h3>
-              <p className="text-gray-400">
-                Get your university-related questions answered by current
-                students and alumni.
-              </p>
-            </div>
-            <div className="rounded-lg bg-[#1A1B26] p-6">
-              <Award className="mb-4 h-10 w-10 text-orange-400" />
-              <h3 className="mb-2 text-xl font-semibold">
-                University Rankings
-              </h3>
-              <p className="text-gray-400">
-                Explore crowd-sourced rankings based on various factors and
-                student experiences.
-              </p>
-            </div>
-          </div>
+          <HoverEffect features={features}></HoverEffect>
         </div>
       </div>
 
