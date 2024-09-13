@@ -1,6 +1,11 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 
+const scrollToFeatures = () => {
+  const featuresSection = document.getElementById("features");
+  if (featuresSection) featuresSection.scrollIntoView({ behavior: "smooth" });
+};
+
 export function HamburgerMenu() {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -30,6 +35,7 @@ export function HamburgerMenu() {
             <a
               href="#"
               className="w-full text-lg text-white transition-colors hover:text-purple-400"
+              onClick={scrollToFeatures}
             >
               Features
             </a>

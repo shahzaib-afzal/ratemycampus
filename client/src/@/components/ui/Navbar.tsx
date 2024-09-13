@@ -25,6 +25,11 @@ export default function Navbar() {
     };
   }, [lastScrollY]);
 
+  const scrollToFeatures = () => {
+    const featuresSection = document.getElementById("features");
+    if (featuresSection) featuresSection.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <nav
       className={`sticky top-0 z-50 flex items-center justify-between bg-[#050520] px-2 py-6 transition-transform duration-300 sm:px-16 ${
@@ -41,7 +46,10 @@ export default function Navbar() {
         <div className="cursor-pointer text-sm font-semibold text-gray-300 transition-colors hover:text-purple-500">
           About
         </div>
-        <div className="cursor-pointer text-sm font-semibold text-gray-300 transition-colors hover:text-pink-600">
+        <div
+          className="cursor-pointer text-sm font-semibold text-gray-300 transition-colors hover:text-pink-600"
+          onClick={scrollToFeatures}
+        >
           Features
         </div>
         <div className="cursor-pointer text-sm font-semibold text-gray-300 transition-colors hover:text-orange-500">

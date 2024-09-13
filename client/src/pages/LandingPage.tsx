@@ -86,7 +86,7 @@ export default function LandingPage() {
       {/* Dashboard Preview*/}
 
       {/* Features Section */}
-      <div className="bg-[#050520] py-20">
+      <div className="bg-[#050520] py-20" id="features">
         <div className="container mx-auto px-4">
           <div className="mb-16 text-center">
             <h2 className="mb-4 text-lg font-bold sm:text-3xl">
