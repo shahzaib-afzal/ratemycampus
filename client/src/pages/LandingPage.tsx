@@ -10,6 +10,7 @@ import Navbar from "../@/components/ui/Navbar";
 import { BackgroundLines } from "../@/components/ui/background-lines";
 import { TextGenerateEffect } from "@/@/components/ui/text-generate-effect";
 import { HoverEffect } from "@/@/components/ui/card-hover-effect";
+import { ContainerScroll } from "@/@/components/ui/container-scroll-animation";
 
 const features = [
   {
@@ -84,6 +85,18 @@ export default function LandingPage() {
       </BackgroundLines>
 
       {/* Dashboard Preview*/}
+      <div className="overflow-hidden">
+        <ContainerScroll>
+          <img
+            src="/images/image.png"
+            alt="Dashboard"
+            height={720}
+            width={1400}
+            className="mx-auto h-full rounded-2xl object-cover object-left-top"
+            draggable={false}
+          />
+        </ContainerScroll>
+      </div>
 
       {/* Features Section */}
       <div className="bg-[#050520] py-20">
