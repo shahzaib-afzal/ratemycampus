@@ -1,9 +1,36 @@
+import { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
 import { HamburgerMenu } from "../hamburger-menu";
 
 export default function Navbar() {
+  const [isVisible, setIsVisible] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
+
+  const handleScroll = () => {
+    if (window.scrollY > lastScrollY) {
+      // Scrolling down
+      setIsVisible(false);
+    } else {
+      // Scrolling up
+      setIsVisible(true);
+    }
+    setLastScrollY(window.scrollY);
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, [lastScrollY]);
+
   return (
-    <nav className="sticky top-0 z-50 flex items-center justify-between bg-[#050520] px-2 py-6 sm:px-16">
+    <nav
+      className={`sticky top-0 z-50 flex items-center justify-between bg-[#050520] px-2 py-6 transition-transform duration-300 sm:px-16 ${
+        isVisible ? "translate-y-0" : "-translate-y-full"
+      }`}
+    >
       <div className="flex items-center space-x-2">
         <GraduationCap className="h-8 w-8 cursor-pointer" />
         <span className="cursor-pointer text-xl font-bold text-white">
