@@ -57,7 +57,7 @@ export default function LandingPage() {
       <Navbar></Navbar>
       {/* Hero Section */}
       <BackgroundLines className="relative flex justify-center overflow-hidden pb-16 pt-16 sm:h-[60vh]">
-        <div className="container relative z-10 mx-auto px-4">
+        <div className="container relative z-10 mx-auto px-4 pt-6">
           {/* Journey Announcement */}
           <div className="mb-6 text-center">
             <span className="inline-block rounded-full bg-purple-500/30 px-4 text-sm text-purple-200 shadow-lg">
@@ -84,15 +84,33 @@ export default function LandingPage() {
         </div>
       </BackgroundLines>
 
-      {/* Dashboard Preview*/}
-      <div className="overflow-hidden">
-        <ContainerScroll>
+      {/* Dashboard Preview */}
+      <div className="relative z-0 mt-28 sm:-mt-24">
+        <ContainerScroll
+          titleComponent={
+            <>
+              <span className="mt-2 block bg-gradient-to-r from-purple-400 via-pink-500 to-orange-500 bg-clip-text pb-4 text-2xl font-bold leading-tight text-transparent sm:text-4xl">
+                Unlock All Your University Insights Effortlessly{" "}
+              </span>
+            </>
+          }
+        >
+          {/* Desktop Image */}
           <img
             src="/images/image.png"
-            alt="Dashboard"
+            alt="RateMyCampus's Dashboard"
             height={720}
             width={1400}
-            className="mx-auto h-full rounded-2xl object-cover object-left-top"
+            className="mx-auto hidden h-full w-full rounded-2xl object-contain sm:block"
+            draggable={false}
+          />
+          {/* Mobile Image */}
+          <img
+            src="/images/mobile.png"
+            alt="RateMyCampus's Dashboard"
+            height={720}
+            width={1400}
+            className="mx-auto block h-full w-full rounded-2xl object-contain sm:hidden"
             draggable={false}
           />
         </ContainerScroll>
