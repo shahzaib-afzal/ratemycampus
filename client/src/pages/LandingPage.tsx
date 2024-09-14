@@ -97,7 +97,7 @@ export default function LandingPage() {
         >
           {/* Desktop Image */}
           <img
-            src="/images/image.png"
+            src="https://cdn.ratemycampus.live/desktop.png"
             alt="RateMyCampus's Dashboard"
             height={720}
             width={1400}
@@ -106,7 +106,7 @@ export default function LandingPage() {
           />
           {/* Mobile Image */}
           <img
-            src="/images/mobile.png"
+            src="https://cdn.ratemycampus.live/mobile.png"
             alt="RateMyCampus's Dashboard"
             height={720}
             width={1400}
