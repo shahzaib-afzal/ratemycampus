@@ -156,7 +156,7 @@ export function UniversityPage() {
                   .join("")}
               </AvatarFallback>
             </Avatar>
-            <div className="ml-4">
+            <div className="ml-4 sm:max-w-5xl">
               <h1 className="pt-4 text-xl font-bold text-white sm:pt-0 sm:text-4xl">
                 {universityData.name}
               </h1>
