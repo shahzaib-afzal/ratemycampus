@@ -277,7 +277,7 @@ export function UniversityPage() {
                 </div>
                 <Button
                   onClick={submitRating}
-                  className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white transition-colors duration-200 hover:from-purple-700 hover:via-pink-600 hover:to-orange-600"
+                  className="rounded-md border border-[#4A4A66] bg-gradient-to-r from-[#1C1C30] to-[#2A2A40] text-white transition-colors duration-200 hover:border-[#66668A] hover:from-[#33334D] hover:to-[#4A4A66]"
                   disabled={userRating === 0}
                 >
                   Submit Rating
@@ -300,7 +300,7 @@ export function UniversityPage() {
               </Button>
               <Button
                 onClick={handlePostSubmit}
-                className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white transition-colors duration-200 hover:from-purple-700 hover:via-pink-600 hover:to-orange-600"
+                className="rounded-md border border-[#4A4A66] bg-gradient-to-r from-[#1C1C30] to-[#2A2A40] text-white transition-colors duration-200 hover:border-[#66668A] hover:from-[#33334D] hover:to-[#4A4A66]"
               >
                 <Send className="mr-2 h-4 w-4" /> Post
               </Button>
@@ -375,7 +375,7 @@ export function UniversityPage() {
                             <p className="text-sm text-gray-300">{comment}</p>
                           </div>
                         ))}
-                        <div className="mt-2 flex w-full">
+                        <div className="mt-2 flex w-full items-center">
                           <Input
                             placeholder="Add a comment..."
                             value={newComments[post.id] || ""}
@@ -385,11 +385,11 @@ export function UniversityPage() {
                                 [post.id]: e.target.value,
                               }))
                             }
-                            className="mr-2 flex-grow border-none bg-white/10 text-white placeholder-gray-400"
+                            className="mr-2 flex-grow border-none bg-white/10 py-6 text-white placeholder-gray-400"
                           />
                           <Button
                             onClick={() => handleCommentSubmit(post.id)}
-                            className="bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white transition-colors duration-200 hover:from-purple-700 hover:via-pink-600 hover:to-orange-600"
+                            className="rounded-md border border-[#4A4A66] bg-gradient-to-r from-[#1C1C30] to-[#2A2A40] text-white transition-colors duration-200 hover:border-[#66668A] hover:from-[#33334D] hover:to-[#4A4A66]"
                           >
                             Post
                           </Button>
