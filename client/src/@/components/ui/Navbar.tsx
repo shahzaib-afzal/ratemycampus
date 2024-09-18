@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
 import { HamburgerMenu } from "../hamburger-menu";
+import { Link } from "react-router-dom";
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
@@ -43,21 +44,27 @@ export default function Navbar() {
         </span>
       </div>
       <div className="hidden items-center space-x-6 sm:flex">
-        <div className="cursor-pointer rounded-lg border border-zinc-500 px-3 py-1.5 text-sm font-semibold text-gray-300 transition-colors hover:text-purple-500">
-          About
-        </div>
+        <Link to={"/about"}>
+          <div className="cursor-pointer rounded-lg border border-zinc-500 px-3 py-1.5 text-sm font-semibold text-gray-300 transition-colors hover:text-purple-500">
+            About
+          </div>
+        </Link>
         <div
           className="cursor-pointer rounded-lg border border-zinc-500 px-3 py-1.5 text-sm font-semibold text-gray-300 transition-colors hover:text-pink-600"
           onClick={scrollToFeatures}
         >
           Features
         </div>
-        <div className="cursor-pointer rounded-lg border border-zinc-500 px-3 py-1.5 text-sm font-semibold text-gray-300 transition-colors hover:text-orange-500">
-          Login
-        </div>
-        <div className="cursor-pointer rounded-md bg-gradient-to-r from-purple-500 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:from-purple-600 hover:to-pink-700">
-          Join Now
-        </div>
+        <Link to={"/login"}>
+          <div className="cursor-pointer rounded-lg border border-zinc-500 px-3 py-1.5 text-sm font-semibold text-gray-300 transition-colors hover:text-orange-500">
+            Login
+          </div>
+        </Link>
+        <Link to={"/signup"}>
+          <div className="cursor-pointer rounded-md bg-gradient-to-r from-purple-500 to-pink-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:from-purple-600 hover:to-pink-700">
+            Join Now
+          </div>
+        </Link>
       </div>
       <HamburgerMenu />
     </nav>

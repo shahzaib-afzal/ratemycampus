@@ -11,6 +11,7 @@ import { BackgroundLines } from "../@/components/ui/background-lines";
 import { TextGenerateEffect } from "@/@/components/ui/text-generate-effect";
 import { HoverEffect } from "@/@/components/ui/card-hover-effect";
 import { ContainerScroll } from "@/@/components/ui/container-scroll-animation";
+import { Link } from "react-router-dom";
 
 const features = [
   {
@@ -142,9 +143,9 @@ export default function LandingPage() {
           </p>
           <span className="text-sm text-white sm:text-base">
             Developed with ❤️ by{" "}
-            <a href="about" className="font-bold">
-              Shahzaib
-            </a>
+            <Link to={"/about"}>
+              <a className="font-bold">Shahzaib</a>
+            </Link>
           </span>
         </div>
       </footer>
