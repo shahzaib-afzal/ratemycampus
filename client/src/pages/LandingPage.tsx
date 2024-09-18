@@ -97,7 +97,7 @@ export default function LandingPage() {
         >
           {/* Desktop Image */}
           <img
-            src="https://cdn.ratemycampus.live/desktop.png"
+            src="https://cdn.ratemycampus.live/desktop.jpg"
             alt="RateMyCampus's Dashboard"
             height={720}
             width={1400}
@@ -106,11 +106,11 @@ export default function LandingPage() {
           />
           {/* Mobile Image */}
           <img
-            src="https://cdn.ratemycampus.live/mobile.png"
+            src="https://cdn.ratemycampus.live/mobile%20(2).jpg"
             alt="RateMyCampus's Dashboard"
             height={720}
             width={1400}
-            className="mx-auto block h-full w-full rounded-2xl object-contain sm:hidden"
+            className="mx-auto block h-full w-full rounded-2xl object-cover sm:hidden"
             draggable={false}
           />
         </ContainerScroll>
@@ -137,10 +137,15 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-gray-800 bg-[#050520] py-8">
         <div className="container mx-auto px-4 text-center text-sm text-gray-600">
-          <p>
-            &copy; {new Date().getFullYear()} RateMyCampus. All rights reserved.
+          <p className="pb-1 text-sm text-white sm:text-base">
+            &copy; {new Date().getFullYear()} RateMyCampus <br />{" "}
           </p>
-          <nav className="mt-4">{/* Removed Link components */}</nav>
+          <span className="text-sm text-white sm:text-base">
+            Developed with ❤️ by{" "}
+            <a href="about" className="font-bold">
+              Shahzaib
+            </a>
+          </span>
         </div>
       </footer>
     </div>
