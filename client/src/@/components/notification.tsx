@@ -43,10 +43,12 @@ export function Notification({
         <div className="relative flex items-start">
           <Bell className={`mr-4 h-6 w-6 ${getStatusStyles()}`} />
           <div className="flex-1">
-            <h3 className={`text-lg font-semibold ${getStatusStyles()}`}>
+            <h3 className={`text-lg font-bold ${getStatusStyles()}`}>
               {status.charAt(0).toUpperCase() + status.slice(1)}
             </h3>
-            <p className="mt-1 text-sm text-gray-300">{message}</p>
+            <p className="mt-1 text-base font-semibold text-gray-300">
+              {message}
+            </p>
           </div>
           <button
             onClick={() => setIsVisible(false)}
