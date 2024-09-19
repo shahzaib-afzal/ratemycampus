@@ -96,24 +96,27 @@ export default function LandingPage() {
             </>
           }
         >
-          {/* Desktop Image */}
-          <img
-            src="https://cdn.ratemycampus.live/desktop.jpg"
-            alt="RateMyCampus's Dashboard"
-            height={720}
-            width={1400}
-            className="mx-auto hidden h-full w-full rounded-2xl object-contain sm:block"
-            draggable={false}
-          />
-          {/* Mobile Image */}
-          <img
-            src="https://cdn.ratemycampus.live/mobile%20(2).jpg"
-            alt="RateMyCampus's Dashboard"
-            height={720}
-            width={1400}
-            className="mx-auto block h-full w-full rounded-2xl object-cover sm:hidden"
-            draggable={false}
-          />
+          <picture>
+            {/* Source for desktop */}
+            <source
+              srcSet="https://cdn.ratemycampus.live/desktop.jpg"
+              media="(min-width: 640px)"
+            />
+            {/* Source for mobile */}
+            <source
+              srcSet="https://cdn.ratemycampus.live/mobile%20(2).jpg"
+              media="(max-width: 639px)"
+            />
+            {/* Fallback image */}
+            <img
+              src="https://cdn.ratemycampus.live/desktop.jpg"
+              alt="RateMyCampus's Dashboard"
+              height={720}
+              width={1400}
+              className="mx-auto h-full w-full rounded-2xl object-contain"
+              draggable={false}
+            />
+          </picture>{" "}
         </ContainerScroll>
       </div>
 
@@ -138,13 +141,13 @@ export default function LandingPage() {
       {/* Footer */}
       <footer className="border-t border-gray-800 bg-[#050520] py-8">
         <div className="container mx-auto px-4 text-center text-sm text-gray-600">
-          <p className="pb-1 text-sm text-white sm:text-base">
+          <p className="pb-1 text-sm sm:text-base">
             &copy; {new Date().getFullYear()} RateMyCampus <br />{" "}
           </p>
-          <span className="text-sm text-white sm:text-base">
+          <span className="text-sm sm:text-base">
             Developed with ❤️ by{" "}
             <Link to={"/about"}>
-              <a className="font-bold">Shahzaib</a>
+              <span className="font-bold text-gray-400">Shahzaib</span>
             </Link>
           </span>
         </div>
