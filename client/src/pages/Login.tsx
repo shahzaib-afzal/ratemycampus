@@ -1,17 +1,51 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useCallback } from "react";
 import { motion } from "framer-motion";
-import { Lock, Mail } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Lock, Mail, Eye, EyeOff } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import axios from "axios";
+import { useNotification } from "@/hooks/useNotification";
+import { useLoadingButton } from "@/hooks/useLoadingButton";
 
-export function LoginPage() {
+export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const { loading, setLoading, buttonContent } = useLoadingButton("Log In");
+  const { setShowNotification, setNotificationProps, notificationComponent } =
+    useNotification();
+  const navigate = useNavigate();
+  const handleSubmit = useCallback(
+    async (event: FormEvent<HTMLFormElement>) => {
+      event.preventDefault();
+      setLoading(true);
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    console.log("Login attempt with:", { email, password });
-    // Here you would typically send the login request to your backend
-  };
+      try {
+        const backendUrl = import.meta.env.VITE_BACKEND_URL_PROD;
+        const response = await axios.post(`${backendUrl}/user/login`, {
+          email,
+          password,
+        });
+        localStorage.setItem("Authorization", response.data.token);
+        setTimeout(() => navigate("/dashboard"), 2000);
+        setNotificationProps({
+          message: "Login successful! Redirecting to Dashboard...",
+          status: "success",
+        });
+      } catch (error) {
+        setNotificationProps({
+          message:
+            (axios.isAxiosError(error) && error.response?.data?.error) ||
+            "Login failed. Please try again.",
+          status: "error",
+        });
+      } finally {
+        setLoading(false);
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 1500);
+      }
+    },
+    [email, password],
+  );
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-[#050520] to-[#2a1b3d] p-4">
@@ -45,27 +79,37 @@ export function LoginPage() {
             </div>
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
                 required
+                minLength={8}
               />
               <Lock
                 className="absolute right-2 top-2 text-gray-400"
                 size={20}
               />
+              <button
+                type="button"
+                onClick={() => setShowPassword(!showPassword)}
+                className="absolute right-10 top-2.5 text-gray-400"
+              >
+                {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+              </button>
             </div>
             <motion.button
               type="submit"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full rounded-full bg-gradient-to-r from-[#00ffff] to-[#ff00ff] py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl"
+              className="w-full rounded-full bg-gradient-to-r from-[#3a7bd5] to-[#3a6073] py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl"
+              disabled={loading}
             >
-              Log In
+              {buttonContent}
             </motion.button>
           </form>
+          {notificationComponent}
           <div className="mt-6 text-center">
             <Link
               to="/forgot-password"
