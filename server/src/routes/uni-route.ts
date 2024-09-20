@@ -106,7 +106,7 @@ uniRoute.get("/list", userAuth, async (c) => {
   }
 });
 
-uniRoute.get("/get-rating", userAuth, async (c) => {
+uniRoute.post("/get-rating", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -145,7 +145,7 @@ uniRoute.get("/get-rating", userAuth, async (c) => {
   }
 });
 
-uniRoute.get("/show-posts", userAuth, async (c) => {
+uniRoute.post("/show-posts", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -194,7 +194,7 @@ uniRoute.get("/show-posts", userAuth, async (c) => {
   }
 });
 
-uniRoute.get("/show-comments", userAuth, async (c) => {
+uniRoute.post("/show-comments", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
