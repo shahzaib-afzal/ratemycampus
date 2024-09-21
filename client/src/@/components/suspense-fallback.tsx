@@ -22,7 +22,7 @@ export default function SuspenseFallback() {
   }, []);
 
   return (
-    <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-gradient-to-br from-[#050520] to-[#2a1b3d]">
+    <div className="fixed inset-0 z-40 flex flex-col items-center justify-center bg-gradient-to-br from-[#050520] to-[#2a1b3d]">
       <div className="fixed left-0 top-0 h-2 w-full overflow-hidden bg-purple-900/30">
         <motion.div
           className="h-full bg-gradient-to-r from-purple-400 via-pink-500 to-red-500"
