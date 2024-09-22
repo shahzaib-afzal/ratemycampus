@@ -19,7 +19,10 @@ export const userAuth = async (c: Context, next: Next) => {
       const formData = await c.req.formData();
       const userId = Number(formData.get("userid"));
       if (userId && userId !== payload.id) throw new Error();
-    } else if (c.req.path !== "/api/v1/uni/list") {
+    } else if (
+      c.req.path !== "/api/v1/uni/list" &&
+      c.req.path !== "/api/v1/uni/get-rating"
+    ) {
       const { userId } = await c.req.json();
       if (userId && userId !== payload.id) throw new Error();
     }
