@@ -164,7 +164,7 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
   const skip = (page - 1) * pageSize;
 
   try {
-    const posts = await prisma.post.findMany({
+    const response = await prisma.post.findMany({
       take: pageSize,
       skip: skip,
       select: {
@@ -177,6 +177,21 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
             fullName: true,
           },
         },
+        Comment: {
+          select: {
+            id: true,
+            comment: true,
+
+            User: {
+              select: {
+                fullName: true,
+              },
+            },
+          },
+          orderBy: {
+            id: "desc",
+          },
+        },
       },
       where: {
         universityId,
@@ -185,10 +200,24 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
         id: "desc",
       },
       cacheStrategy: {
-        ttl: 60,
-        swr: 5,
+        ttl: 90,
+        swr: 15,
       },
     });
+    const posts = response.map((post) => ({
+      id: post.id,
+      content: post.content,
+      photo: post.photo,
+      userId: post.userId,
+      authorName: post.User.fullName,
+      comments: post.Comment.slice(0, 3).map((comment) => ({
+        id: comment.id,
+        comment: comment.comment,
+        authorName: comment.User.fullName,
+      })),
+      totalComments: post.Comment.length,
+    }));
+
     return c.json({
       posts,
     });
@@ -208,18 +237,12 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
   }).$extends(withAccelerate());
 
   const { postId } = await c.req.json();
-  const page = Number(c.req.query("page"));
-  const pageSize = 10;
-  const skip = (page - 1) * pageSize;
 
   try {
     const comments = await prisma.comment.findMany({
-      take: pageSize,
-      skip: skip,
       select: {
         id: true,
         comment: true,
-        userId: true,
         User: {
           select: {
             fullName: true,
@@ -233,8 +256,8 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
         id: "desc",
       },
       cacheStrategy: {
-        ttl: 30,
-        swr: 5,
+        ttl: 90,
+        swr: 15,
       },
     });
     return c.json({
