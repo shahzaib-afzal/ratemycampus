@@ -256,9 +256,8 @@ userRoute.delete("/delete-post", userAuth, async (c) => {
         id: postId,
       },
     });
-    if (post.userId !== userId) return c.json({ message: "Not Allowed!" }, 404);
+    if (post.userId !== userId) return c.json({ message: "Not Allowed!" }, 401);
     if (post.photo) {
-      console.log("Deleting...");
       const isDeleted = await deleteImage(`posts/post${post.id}`, c.env);
       if (!isDeleted) throw new Error();
     }
@@ -294,6 +293,17 @@ userRoute.post("/comment", userAuth, async (c) => {
         comment: comment,
         userId: userId,
         postId: postId,
+      },
+      select: {
+        id: true,
+        comment: true,
+      },
+      include: {
+        User: {
+          select: {
+            fullName: true,
+          },
+        },
       },
     });
     return c.json({
