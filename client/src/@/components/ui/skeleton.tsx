@@ -12,4 +12,10 @@ function Skeleton({
   );
 }
 
+export const PulseSkeleton = ({ className }: { className: string }) => (
+  <div className={`animate-pulse ${className}`}>
+    <div className="h-full w-full rounded bg-gray-300 dark:bg-gray-700"></div>
+  </div>
+);
+
 export { Skeleton };
