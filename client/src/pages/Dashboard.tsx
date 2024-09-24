@@ -13,13 +13,13 @@ import { Avatar, AvatarImage, AvatarFallback } from "../@/components/ui/avatar";
 import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
 import { useRecoilValueLoadable } from "recoil";
-import { universitiesSelector } from "@/recoil/selectors/universitiesSelector";
+import { universitiesSelector } from "@/recoil/selectors/universities-selector";
 import { University as Uni, User as UserInfo } from "ratemypackage";
-import { ratingSelector } from "@/recoil/selectors/uniRatingSelector";
+import { ratingSelector } from "@/recoil/selectors/uni-rating-selector";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import { DashboardSkeleton } from "@/@/components/dashboard-skeleton";
-import { userSelector } from "@/recoil/selectors/userSelector";
+import { userSelector } from "@/recoil/selectors/user-selector";
 
 export type University = Omit<Uni, "coverPhoto" | "logo"> & {
   id: number;
@@ -102,7 +102,7 @@ export default function Dashboard() {
                   >
                     <Avatar className="h-8 w-8">
                       <AvatarImage
-                        src={user?.profilePhoto?.charAt(0) ?? undefined}
+                        src={user?.profilePhoto || undefined}
                         alt={user.fullName}
                       />
                       <AvatarFallback className="text-lg font-bold text-gray-700">
