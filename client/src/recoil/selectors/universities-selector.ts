@@ -1,12 +1,12 @@
 import { selector } from "recoil";
-import { universitiesAndUserSelector } from "./uniUserSelector";
+import { universitiesAndUserSelector } from "./uni-user-selector";
 
-export const userSelector = selector({
-  key: "userSelector",
+export const universitiesSelector = selector({
+  key: "universitiesSelector",
   get: ({ get }) => {
     try {
       const data = get(universitiesAndUserSelector);
-      return data.userInfo;
+      return data.universities;
     } catch (error) {
       throw error;
     }
