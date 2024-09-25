@@ -187,14 +187,14 @@ userRoute.post("/post", userAuth, async (c) => {
 
   const formData = await c.req.formData();
 
-  const post: Post = {
+  const createPost: Post = {
     content: formData.get("content") as string,
     universityId: Number(formData.get("uniid")),
     userId: Number(formData.get("userid")),
     photo: formData.get("photo") as File,
   };
 
-  const parse = postSchema.safeParse(post);
+  const parse = postSchema.safeParse(createPost);
   if (!parse.success) {
     const errorMessages = parse.error.errors.map((err) => err.message);
     return c.json({ error: errorMessages }, 411);
@@ -202,9 +202,9 @@ userRoute.post("/post", userAuth, async (c) => {
   try {
     let userPost = await prisma.post.create({
       data: {
-        content: post.content,
-        universityId: post.universityId,
-        userId: post.userId,
+        content: createPost.content,
+        universityId: createPost.universityId,
+        userId: createPost.userId,
       },
       include: {
         User: {
@@ -215,9 +215,9 @@ userRoute.post("/post", userAuth, async (c) => {
       },
     });
 
-    if (post?.photo?.type.includes("image")) {
+    if (createPost?.photo?.type.includes("image")) {
       const photoUrl = await uploadImage(
-        post.photo,
+        createPost.photo,
         c.env,
         `posts/post${userPost.id}`
       );
@@ -237,10 +237,16 @@ userRoute.post("/post", userAuth, async (c) => {
         },
       });
     }
+    const post = {
+      id: userPost.id,
+      userId: userPost.userId,
+      content: userPost.content,
+      photo: userPost.photo,
+      authorName: userPost.User.fullName,
+    };
 
     return c.json({
-      message: "Posted Successfully!",
-      userPost,
+      post,
     });
   } catch (error) {
     return c.json({ error }, 400);
@@ -310,7 +316,6 @@ userRoute.post("/comment", userAuth, async (c) => {
       },
     });
     return c.json({
-      message: "Comment posted successfully!",
       postedComment,
     });
   } catch (error) {
