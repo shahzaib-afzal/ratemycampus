@@ -239,7 +239,7 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
   const { postId } = await c.req.json();
 
   try {
-    const comments = await prisma.comment.findMany({
+    const response = await prisma.comment.findMany({
       select: {
         id: true,
         comment: true,
@@ -259,6 +259,13 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
         ttl: 90,
         swr: 15,
       },
+    });
+    const comments = response.map((comment) => {
+      return {
+        id: comment.id,
+        comment: comment.comment,
+        authorName: comment.User.fullName,
+      };
     });
     return c.json({
       comments,
