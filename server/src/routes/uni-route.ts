@@ -106,35 +106,43 @@ uniRoute.get("/list", userAuth, async (c) => {
   }
 });
 
-uniRoute.post("/get-rating", userAuth, async (c) => {
+uniRoute.get("/get-rating", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
 
-  const { universityId } = await c.req.json();
   try {
-    const rating = await prisma.rating.findMany({
+    const ratings = await prisma.rating.findMany({
       cacheStrategy: {
-        ttl: 43200,
-        swr: 300,
-      },
-      where: {
-        universityId,
+        ttl: 300,
+        swr: 150,
       },
       select: {
+        universityId: true,
         rating: true,
       },
     });
-    if (rating.length === 0) {
-      return c.json({
-        averageRating: 0,
-      });
-    }
-    const averageRating =
-      rating.reduce((sum, val) => sum + val.rating, 0) / rating.length;
-    return c.json({
-      averageRating,
+
+    const ratingMap = new Map<number, { totalRating: number; count: number }>();
+
+    ratings.forEach(({ universityId, rating }) => {
+      if (!ratingMap.has(universityId)) {
+        ratingMap.set(universityId, { totalRating: 0, count: 0 });
+      }
+      const data = ratingMap.get(universityId)!;
+      data.totalRating += rating;
+      data.count += 1;
     });
+
+    const result = Array.from(ratingMap.entries()).map(
+      ([universityId, { totalRating, count }]) => ({
+        universityId,
+        averageRating: (totalRating / count).toFixed(1),
+        totalRatings: count,
+      })
+    );
+
+    return c.json({ ratings: result });
   } catch (error) {
     return c.json(
       {
@@ -156,7 +164,7 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
   const skip = (page - 1) * pageSize;
 
   try {
-    const posts = await prisma.post.findMany({
+    const response = await prisma.post.findMany({
       take: pageSize,
       skip: skip,
       select: {
@@ -169,6 +177,21 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
             fullName: true,
           },
         },
+        Comment: {
+          select: {
+            id: true,
+            comment: true,
+
+            User: {
+              select: {
+                fullName: true,
+              },
+            },
+          },
+          orderBy: {
+            id: "desc",
+          },
+        },
       },
       where: {
         universityId,
@@ -177,10 +200,24 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
         id: "desc",
       },
       cacheStrategy: {
-        ttl: 60,
-        swr: 5,
+        ttl: 90,
+        swr: 15,
       },
     });
+    const posts = response.map((post) => ({
+      id: post.id,
+      content: post.content,
+      photo: post.photo,
+      userId: post.userId,
+      authorName: post.User.fullName,
+      comments: post.Comment.slice(0, 3).map((comment) => ({
+        id: comment.id,
+        comment: comment.comment,
+        authorName: comment.User.fullName,
+      })),
+      totalComments: post.Comment.length,
+    }));
+
     return c.json({
       posts,
     });
@@ -200,18 +237,12 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
   }).$extends(withAccelerate());
 
   const { postId } = await c.req.json();
-  const page = Number(c.req.query("page"));
-  const pageSize = 10;
-  const skip = (page - 1) * pageSize;
 
   try {
-    const comments = await prisma.comment.findMany({
-      take: pageSize,
-      skip: skip,
+    const response = await prisma.comment.findMany({
       select: {
         id: true,
         comment: true,
-        userId: true,
         User: {
           select: {
             fullName: true,
@@ -225,9 +256,16 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
         id: "desc",
       },
       cacheStrategy: {
-        ttl: 30,
-        swr: 5,
+        ttl: 90,
+        swr: 15,
       },
+    });
+    const comments = response.map((comment) => {
+      return {
+        id: comment.id,
+        comment: comment.comment,
+        authorName: comment.User.fullName,
+      };
     });
     return c.json({
       comments,
