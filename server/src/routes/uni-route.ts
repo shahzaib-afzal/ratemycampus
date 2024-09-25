@@ -263,7 +263,7 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
     const comments = response.map((comment) => {
       return {
         id: comment.id,
-        comment: comment.comment,
+        content: comment.comment,
         authorName: comment.User.fullName,
       };
     });
