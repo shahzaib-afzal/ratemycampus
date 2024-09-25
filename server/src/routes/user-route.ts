@@ -165,6 +165,9 @@ userRoute.post("/rating", userAuth, async (c) => {
         universityId,
         userId,
       },
+      select: {
+        rating: true,
+      },
     });
     return c.json({
       message: "Rated Successfully!",
@@ -172,7 +175,7 @@ userRoute.post("/rating", userAuth, async (c) => {
     });
   } catch (error) {
     return c.json({
-      error: "Cannot rate again!",
+      error: "You can't rate again!",
     });
   }
 });
