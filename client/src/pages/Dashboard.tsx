@@ -14,28 +14,12 @@ import { Button } from "../@/components/ui/button";
 import { Input } from "../@/components/ui/input";
 import { useRecoilValueLoadable } from "recoil";
 import { universitiesSelector } from "@/recoil/selectors/universities-selector";
-import { University as Uni, User as UserInfo } from "ratemypackage";
 import { ratingSelector } from "@/recoil/selectors/uni-rating-selector";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
 import { DashboardSkeleton } from "@/@/components/dashboard-skeleton";
 import { userSelector } from "@/recoil/selectors/user-selector";
-
-export type University = Omit<Uni, "coverPhoto" | "logo"> & {
-  id: number;
-  coverPhoto: string;
-  logo: string;
-};
-export type User = Omit<UserInfo, "password" | "profilePhoto"> & {
-  id: number;
-  isVerified: string;
-  profilePhoto: string | null;
-};
-export type Rating = {
-  universityId: number;
-  averageRating: number;
-  totalRatings: number;
-};
+import { Rating, University, User } from "@/types";
 
 export default function Dashboard() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);

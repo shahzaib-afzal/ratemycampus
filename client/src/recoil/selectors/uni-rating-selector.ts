@@ -1,5 +1,6 @@
 import { selector } from "recoil";
 import axios from "axios";
+import { Rating } from "@/types";
 
 export const ratingSelector = selector({
   key: "ratingSelector",
@@ -11,7 +12,7 @@ export const ratingSelector = selector({
           Authorization: `Bearer ${localStorage.getItem("Authorization")}`,
         },
       });
-      return response.data.ratings;
+      return response.data.ratings as Rating[];
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
         throw {
