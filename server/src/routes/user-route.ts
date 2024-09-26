@@ -151,7 +151,7 @@ userRoute.post("/login", async (c) => {
   }
 });
 
-userRoute.post("/rating", userAuth, async (c) => {
+userRoute.post("/rate", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -174,9 +174,12 @@ userRoute.post("/rating", userAuth, async (c) => {
       rate,
     });
   } catch (error) {
-    return c.json({
-      error: "You can't rate again!",
-    });
+    return c.json(
+      {
+        error: "You can't rate again!",
+      },
+      409
+    );
   }
 });
 
