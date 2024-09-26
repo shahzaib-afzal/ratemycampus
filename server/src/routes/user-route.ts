@@ -297,15 +297,11 @@ userRoute.post("/comment", userAuth, async (c) => {
   }
 
   try {
-    const postedComment = await prisma.comment.create({
+    const createComment = await prisma.comment.create({
       data: {
         comment: comment,
         userId: userId,
         postId: postId,
-      },
-      select: {
-        id: true,
-        comment: true,
       },
       include: {
         User: {
@@ -315,6 +311,11 @@ userRoute.post("/comment", userAuth, async (c) => {
         },
       },
     });
+    const postedComment = {
+      id: createComment.id,
+      content: createComment.comment,
+      authorName: createComment.User.fullName,
+    };
     return c.json({
       postedComment,
     });
