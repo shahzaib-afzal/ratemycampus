@@ -210,6 +210,7 @@ userRoute.post("/post", userAuth, async (c) => {
         User: {
           select: {
             fullName: true,
+            profilePhoto: true,
           },
         },
       },
@@ -232,6 +233,7 @@ userRoute.post("/post", userAuth, async (c) => {
           User: {
             select: {
               fullName: true,
+              profilePhoto: true,
             },
           },
         },
@@ -243,6 +245,7 @@ userRoute.post("/post", userAuth, async (c) => {
       content: userPost.content,
       photo: userPost.photo,
       authorName: userPost.User.fullName,
+      authorProfile: userPost.User.profilePhoto,
     };
 
     return c.json({

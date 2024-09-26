@@ -175,6 +175,7 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
         User: {
           select: {
             fullName: true,
+            profilePhoto: true,
           },
         },
         Comment: {
@@ -210,6 +211,7 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
       photo: post.photo,
       userId: post.userId,
       authorName: post.User.fullName,
+      authorProfile: post.User.profilePhoto,
       comments: post.Comment.slice(0, 3).map((comment) => ({
         id: comment.id,
         comment: comment.comment,
