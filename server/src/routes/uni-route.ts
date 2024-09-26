@@ -214,7 +214,7 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
       authorProfile: post.User.profilePhoto,
       comments: post.Comment.slice(0, 3).map((comment) => ({
         id: comment.id,
-        comment: comment.comment,
+        content: comment.comment,
         authorName: comment.User.fullName,
       })),
       totalComments: post.Comment.length,
