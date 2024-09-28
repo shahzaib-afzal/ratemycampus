@@ -3,7 +3,7 @@ import { Bell, X } from "lucide-react";
 
 export function Notification({
   message,
-  time = 5000,
+  time = 4000,
   status = "info",
   onClose,
 }: {
