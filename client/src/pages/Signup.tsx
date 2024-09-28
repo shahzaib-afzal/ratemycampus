@@ -38,10 +38,8 @@ export default function SignupPage() {
             status: "error",
           });
           setShowNotification(true);
-          setTimeout(() => setShowNotification(false), 5000);
           return;
         }
-
         setFile(file);
       }
     },
@@ -62,7 +60,6 @@ export default function SignupPage() {
           status: "error",
         });
         setShowNotification(true);
-        setTimeout(() => setShowNotification(false), 5000);
         setLoading(false); // Set loading to false if passwords don't match
         return;
       }
