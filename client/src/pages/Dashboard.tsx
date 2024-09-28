@@ -4,14 +4,14 @@ import {
   LogOut,
   // Settings, (Line 109)
   Plus,
-  Search,
+  // Search, (Line 152)
   Star,
   MapPin,
   Book,
 } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "../@/components/ui/avatar";
 import { Button } from "../@/components/ui/button";
-import { Input } from "../@/components/ui/input";
+// import { Input } from "../@/components/ui/input"; (Line 152)
 import { useRecoilValueLoadable } from "recoil";
 import { universitiesSelector } from "@/recoil/selectors/universities-selector";
 import { ratingSelector } from "@/recoil/selectors/uni-rating-selector";
@@ -61,6 +61,15 @@ export default function Dashboard() {
     const universities: University[] = uniData.contents;
     const user: User = userData.contents;
     const ratings: Rating[] = ratingData.contents;
+    const ratingMap = new Map<number, number>(
+      ratings.map((rating) => [rating.universityId, rating.averageRating]),
+    );
+    const sortedUniversities = [...universities].sort((a, b) => {
+      const ratingA = ratingMap.get(a.id) || 0;
+      const ratingB = ratingMap.get(b.id) || 0;
+
+      return ratingB - ratingA;
+    });
 
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#050520] to-[#2a1b3d] text-white">
@@ -74,10 +83,12 @@ export default function Dashboard() {
               </div>
               <div className="flex items-center space-x-4">
                 {user.email === import.meta.env.VITE_SUPER_USER ? (
-                  <Button className="transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700 sm:flex">
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add University
-                  </Button>
+                  <Link to={"/add-university"}>
+                    <Button className="transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700 sm:flex">
+                      <Plus className="mr-2 h-4 w-4" />
+                      Add University
+                    </Button>
+                  </Link>
                 ) : null}{" "}
                 <div className="relative">
                   <Button
@@ -140,7 +151,8 @@ export default function Dashboard() {
               <h2 className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
                 Discover Universities
               </h2>
-              <div className="w-full sm:w-auto">
+              {/* Uncomment after Adding Search Functionality */}
+              {/* <div className="w-full sm:w-auto">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 transform text-purple-300" />
                   <Input
@@ -149,18 +161,20 @@ export default function Dashboard() {
                     className="w-full rounded-full border border-purple-500/50 bg-white/10 py-2 pl-10 pr-4 transition duration-300 focus:border-purple-500 focus:outline-none sm:w-64"
                   />
                 </div>
-              </div>
+              </div> */}
             </div>
             <div className="mb-4 sm:hidden">
               {user.email === import.meta.env.VITE_SUPER_USER ? (
-                <Button className="transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700 sm:flex">
-                  <Plus className="mr-2 h-4 w-4" />
-                  Add University
-                </Button>
+                <Link to={"/add-university"}>
+                  <Button className="transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700 sm:flex">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add University
+                  </Button>
+                </Link>
               ) : null}
             </div>
             <div className="space-y-6">
-              {universities.map((university) => (
+              {sortedUniversities.map((university) => (
                 <div
                   key={university.id}
                   className="transform overflow-hidden rounded-xl bg-white/5 shadow-lg backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl"
