@@ -428,7 +428,7 @@ export default function UniversityPage() {
               <div className="mt-2 flex items-center">
                 <MapPin className="mr-1 h-4 w-4 text-gray-300" />
                 <span className="text-sm text-gray-300">
-                  {`${university.mainCampus}, PK`}
+                  {university.mainCampus}
                 </span>
               </div>
             </div>

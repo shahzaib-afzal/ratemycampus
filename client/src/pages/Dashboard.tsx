@@ -212,7 +212,7 @@ export default function Dashboard() {
                           </Link>
                           <p className="mt-2 flex items-center text-purple-300">
                             <MapPin className="mr-1 h-4 w-4" />{" "}
-                            {university.mainCampus}, PK
+                            {university.mainCampus}
                           </p>
                         </div>
                         <div className="mt-2 flex items-center rounded-full bg-purple-900/50 px-2 py-1 sm:mt-0">
