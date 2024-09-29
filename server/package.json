@@ -6,7 +6,7 @@
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
-    "@prisma/extension-accelerate": "^1.1.0",
+    "@prisma/extension-accelerate": "^1.2.0",
     "bcryptjs": "^2.4.3",
     "hono": "^4.6.3",
     "ratemypackage": "^1.0.6"
@@ -15,6 +15,6 @@
     "@cloudflare/workers-types": "^4.20240925.0",
     "@types/bcryptjs": "^2.4.6",
     "prisma": "^5.20.0",
-    "wrangler": "^3.78.10"
+    "wrangler": "^3.78.12"
   }
 }
