@@ -243,6 +243,8 @@ export default function UniversityPage() {
           status: "error",
         });
         setShowNotification(true);
+      } finally {
+        setIsPostingNewPost(false);
       }
     }
   }, [
