@@ -15,6 +15,7 @@ const LoginPage = lazy(() => import("./pages/Login"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const UniversityPage = lazy(() => import("./pages/University"));
 const AddUniversity = lazy(() => import("./pages/AddUnversity"));
+const AboutMe = lazy(() => import("./pages/AboutMe"));
 
 function App() {
   return (
@@ -55,6 +56,7 @@ function App() {
             }
           />
           <Route path="/add-university" element={<AddUniversity />} />
+          <Route path="/about" element={<AboutMe />} />
         </Routes>
       </Suspense>
     </RecoilRoot>
