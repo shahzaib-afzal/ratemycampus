@@ -151,7 +151,7 @@ userRoute.post("/login", async (c) => {
   }
 });
 
-userRoute.post("/rating", userAuth, async (c) => {
+userRoute.post("/rate", userAuth, async (c) => {
   const prisma = new PrismaClient({
     datasourceUrl: c.env.DATABASE_URL,
   }).$extends(withAccelerate());
@@ -174,9 +174,12 @@ userRoute.post("/rating", userAuth, async (c) => {
       rate,
     });
   } catch (error) {
-    return c.json({
-      error: "You can't rate again!",
-    });
+    return c.json(
+      {
+        error: "You can't rate again!",
+      },
+      409
+    );
   }
 });
 
@@ -187,14 +190,14 @@ userRoute.post("/post", userAuth, async (c) => {
 
   const formData = await c.req.formData();
 
-  const post: Post = {
+  const createPost: Post = {
     content: formData.get("content") as string,
     universityId: Number(formData.get("uniid")),
     userId: Number(formData.get("userid")),
     photo: formData.get("photo") as File,
   };
 
-  const parse = postSchema.safeParse(post);
+  const parse = postSchema.safeParse(createPost);
   if (!parse.success) {
     const errorMessages = parse.error.errors.map((err) => err.message);
     return c.json({ error: errorMessages }, 411);
@@ -202,22 +205,23 @@ userRoute.post("/post", userAuth, async (c) => {
   try {
     let userPost = await prisma.post.create({
       data: {
-        content: post.content,
-        universityId: post.universityId,
-        userId: post.userId,
+        content: createPost.content,
+        universityId: createPost.universityId,
+        userId: createPost.userId,
       },
       include: {
         User: {
           select: {
             fullName: true,
+            profilePhoto: true,
           },
         },
       },
     });
 
-    if (post?.photo?.type.includes("image")) {
+    if (createPost?.photo?.type.includes("image")) {
       const photoUrl = await uploadImage(
-        post.photo,
+        createPost.photo,
         c.env,
         `posts/post${userPost.id}`
       );
@@ -232,15 +236,23 @@ userRoute.post("/post", userAuth, async (c) => {
           User: {
             select: {
               fullName: true,
+              profilePhoto: true,
             },
           },
         },
       });
     }
+    const post = {
+      id: userPost.id,
+      userId: userPost.userId,
+      content: userPost.content,
+      photo: userPost.photo,
+      authorName: userPost.User.fullName,
+      authorProfile: userPost.User.profilePhoto,
+    };
 
     return c.json({
-      message: "Posted Successfully!",
-      userPost,
+      post,
     });
   } catch (error) {
     return c.json({ error }, 400);
@@ -291,15 +303,11 @@ userRoute.post("/comment", userAuth, async (c) => {
   }
 
   try {
-    const postedComment = await prisma.comment.create({
+    const createComment = await prisma.comment.create({
       data: {
         comment: comment,
         userId: userId,
         postId: postId,
-      },
-      select: {
-        id: true,
-        comment: true,
       },
       include: {
         User: {
@@ -309,8 +317,12 @@ userRoute.post("/comment", userAuth, async (c) => {
         },
       },
     });
+    const postedComment = {
+      id: createComment.id,
+      content: createComment.comment,
+      authorName: createComment.User.fullName,
+    };
     return c.json({
-      message: "Comment posted successfully!",
       postedComment,
     });
   } catch (error) {

@@ -49,7 +49,7 @@ uniRoute.post("/add", superUserAuth, async (c) => {
     const uni = await prisma.university.create({
       data: {
         name: universityInfo.name,
-        fee: new Intl.NumberFormat("en-PK").format(Number(universityInfo.fee)),
+        fee: Number(universityInfo.fee).toLocaleString(),
         topField: universityInfo.topField,
         status: universityInfo.status,
         campuses: universityInfo.campuses,
@@ -175,6 +175,7 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
         User: {
           select: {
             fullName: true,
+            profilePhoto: true,
           },
         },
         Comment: {
@@ -210,9 +211,10 @@ uniRoute.post("/show-posts", userAuth, async (c) => {
       photo: post.photo,
       userId: post.userId,
       authorName: post.User.fullName,
+      authorProfile: post.User.profilePhoto,
       comments: post.Comment.slice(0, 3).map((comment) => ({
         id: comment.id,
-        comment: comment.comment,
+        content: comment.comment,
         authorName: comment.User.fullName,
       })),
       totalComments: post.Comment.length,
@@ -263,7 +265,7 @@ uniRoute.post("/show-comments", userAuth, async (c) => {
     const comments = response.map((comment) => {
       return {
         id: comment.id,
-        comment: comment.comment,
+        content: comment.comment,
         authorName: comment.User.fullName,
       };
     });

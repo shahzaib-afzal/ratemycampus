@@ -13,7 +13,7 @@ app.use(
 );
 
 app.get("/", async (c) => {
-  return c.text("Worker 1.1 is live");
+  return c.text("RateMyCampus 1.0 is live");
 });
 
 app.route("/api/v1/user/", userRoute);
