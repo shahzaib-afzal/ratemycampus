@@ -29,7 +29,7 @@ export function HamburgerMenu() {
           <nav className="flex flex-col items-start space-y-4 p-4">
             <Link to={"/about"}>
               <a className="w-full text-lg text-white transition-colors hover:text-purple-400">
-                About
+                About Me
               </a>
             </Link>
             <a

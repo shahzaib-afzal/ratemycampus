@@ -46,7 +46,7 @@ export default function Navbar() {
       <div className="hidden items-center space-x-6 sm:flex">
         <Link to={"/about"}>
           <div className="cursor-pointer rounded-lg border border-zinc-500 px-3 py-1.5 text-sm font-semibold text-gray-300 transition-colors hover:text-purple-500">
-            About
+            About Me
           </div>
         </Link>
         <div
