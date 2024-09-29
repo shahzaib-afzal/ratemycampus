@@ -49,7 +49,7 @@ uniRoute.post("/add", superUserAuth, async (c) => {
     const uni = await prisma.university.create({
       data: {
         name: universityInfo.name,
-        fee: new Intl.NumberFormat("en-PK").format(Number(universityInfo.fee)),
+        fee: Number(universityInfo.fee).toLocaleString(),
         topField: universityInfo.topField,
         status: universityInfo.status,
         campuses: universityInfo.campuses,
