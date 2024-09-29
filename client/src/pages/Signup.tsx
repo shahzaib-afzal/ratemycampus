@@ -38,10 +38,8 @@ export default function SignupPage() {
             status: "error",
           });
           setShowNotification(true);
-          setTimeout(() => setShowNotification(false), 5000);
           return;
         }
-
         setFile(file);
       }
     },
@@ -54,7 +52,7 @@ export default function SignupPage() {
   const handleSubmit = useCallback(
     async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
-      setLoading(true); // Set loading to true when form is submitted
+      setLoading(true);
 
       if (password !== confirmPassword) {
         setNotificationProps({
@@ -62,8 +60,7 @@ export default function SignupPage() {
           status: "error",
         });
         setShowNotification(true);
-        setTimeout(() => setShowNotification(false), 5000);
-        setLoading(false); // Set loading to false if passwords don't match
+        setLoading(false);
         return;
       }
       const formData = new FormData();
@@ -90,7 +87,7 @@ export default function SignupPage() {
           status: "error",
         });
       } finally {
-        setLoading(false); // Set loading to false after response is received
+        setLoading(false);
         setShowNotification(true);
         setTimeout(() => setShowNotification(false), 1500);
       }
@@ -121,7 +118,7 @@ export default function SignupPage() {
                   placeholder="Full Name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
+                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#8a84ff] focus:outline-none"
                   required
                 />
                 <UserIcon
@@ -135,7 +132,7 @@ export default function SignupPage() {
                   placeholder="Email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
+                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#8a84ff] focus:outline-none"
                   required
                 />
                 <Mail
@@ -149,7 +146,7 @@ export default function SignupPage() {
                   placeholder="Password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
+                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#8a84ff] focus:outline-none"
                   required
                   minLength={8}
                 />
@@ -178,7 +175,7 @@ export default function SignupPage() {
                   placeholder="Confirm Password"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
+                  className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#8a84ff] focus:outline-none"
                   required
                   minLength={8}
                 />
@@ -209,7 +206,7 @@ export default function SignupPage() {
                 type="submit"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full rounded-full bg-gradient-to-r from-[#3a7bd5] to-[#3a6073] py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl"
+                className="w-full rounded-full bg-gradient-to-r from-[#6c63ff] to-[#3b3663] py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl"
                 disabled={loading}
               >
                 {buttonContent}
@@ -243,7 +240,7 @@ export default function SignupPage() {
             </div>
             <div className="relative">
               <label htmlFor="file-upload" className="cursor-pointer">
-                <div className="z-0 flex h-48 w-48 items-center justify-center overflow-hidden rounded-full border-4 border-[#00ffff] bg-gray-700 transition-colors duration-300 hover:border-[#ff00ff]">
+                <div className="z-0 flex h-48 w-48 items-center justify-center overflow-hidden rounded-full border-4 border-[#8a84ff] bg-gray-700 transition-colors duration-300 hover:border-[#ff00ff]">
                   {file ? (
                     <img
                       src={URL.createObjectURL(file)}

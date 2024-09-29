@@ -69,7 +69,7 @@ export default function LoginPage() {
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
+                className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#8a84ff] focus:outline-none"
                 required
               />
               <Mail
@@ -83,7 +83,7 @@ export default function LoginPage() {
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#00ffff] focus:outline-none"
+                className="w-full border-b-2 border-gray-400 bg-transparent px-4 py-2 text-white transition-colors focus:border-[#8a84ff] focus:outline-none"
                 required
                 minLength={8}
               />
@@ -103,7 +103,7 @@ export default function LoginPage() {
               type="submit"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="w-full rounded-full bg-gradient-to-r from-[#3a7bd5] to-[#3a6073] py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl"
+              className="w-full rounded-full bg-gradient-to-r from-[#6c63ff] to-[#3b3663] py-3 font-bold text-white shadow-lg transition-all duration-300 hover:shadow-xl"
               disabled={loading}
             >
               {buttonContent}

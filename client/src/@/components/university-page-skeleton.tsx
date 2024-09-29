@@ -49,9 +49,9 @@ export function UniversityPageSkeleton() {
                   <Building className="mr-2 h-5 w-5 text-gray-300" />
                   <PulseSkeleton className="h-5 w-24" />
                 </div>
-                <div className="flex items-center rounded-lg bg-white/10 px-1 py-3 shadow-sm">
-                  <DollarSign className="mr-1 h-5 w-5 text-gray-300" />
-                  <PulseSkeleton className="h-5 w-32" />
+                <div className="flex items-center rounded-lg bg-white/10 py-3 shadow-sm">
+                  <DollarSign className="mr-2 h-5 w-5 text-gray-300" />
+                  <PulseSkeleton className="h-5 w-24" />
                 </div>
               </div>
               <div className="flex w-full flex-col space-y-4 sm:w-auto sm:flex-row sm:items-center sm:space-x-2 sm:space-y-0">
