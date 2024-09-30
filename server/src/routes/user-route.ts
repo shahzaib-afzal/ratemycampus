@@ -171,7 +171,7 @@ userRoute.post("/rate", userAuth, async (c) => {
     });
     return c.json({
       message: "Rated Successfully!",
-      rate,
+      rating: rate.rating,
     });
   } catch (error) {
     return c.json(
