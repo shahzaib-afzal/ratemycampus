@@ -74,7 +74,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#050520] to-[#2a1b3d] text-white">
         <nav className="sticky top-0 z-10 border-b border-purple-900/50 bg-[#050520]/80 backdrop-blur-sm">
-          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-7xl px-4 sm:px-5">
             <div className="flex h-16 items-center justify-between">
               <div className="flex items-center">
                 <span className="bg-gradient-to-r from-purple-400 to-pink-600 bg-clip-text text-2xl font-bold text-transparent sm:text-3xl">
@@ -249,6 +249,18 @@ export default function Dashboard() {
             </div>
           </div>
         </main>
+        <footer className="pb-6 text-base text-white">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center justify-between space-y-2 sm:flex-row sm:space-y-0">
+              <p className="">
+                &copy; {new Date().getFullYear()} Developed by Shahzaib
+              </p>
+              <Link to="/about" className="text-purple-400 hover:underline">
+                About the Developer
+              </Link>
+            </div>
+          </div>
+        </footer>
       </div>
     );
   }
