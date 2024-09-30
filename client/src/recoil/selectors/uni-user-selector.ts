@@ -1,12 +1,15 @@
 import { selector } from "recoil";
 import axios from "axios";
+import { triggerAtom } from "../atoms/trigger-atom";
 
 export const universitiesAndUserSelector = selector({
   key: "universitiesAndUserSelector",
-  get: async () => {
+  get: async ({ get }) => {
     try {
+      get(triggerAtom);
       const token = localStorage.getItem("Authorization");
       if (!token) throw new Error();
+
       const backendUrl = import.meta.env.VITE_BACKEND_URL_PROD;
       const response = await axios.get(`${backendUrl}/uni/list`, {
         headers: {
