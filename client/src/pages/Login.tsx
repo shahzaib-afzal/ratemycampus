@@ -5,11 +5,14 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useNotification } from "@/hooks/useNotification";
 import { useLoadingButton } from "@/hooks/useLoadingButton";
+import { useSetRecoilState } from "recoil";
+import { triggerAtom } from "@/recoil/atoms/trigger-atom";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const setTriggerAtom = useSetRecoilState(triggerAtom);
   const { loading, setLoading, buttonContent } = useLoadingButton("Log In");
   const { setShowNotification, setNotificationProps, notificationComponent } =
     useNotification();
@@ -26,6 +29,7 @@ export default function LoginPage() {
           password,
         });
         localStorage.setItem("Authorization", response.data.token);
+        setTriggerAtom((currVal) => currVal + 1);
         setTimeout(() => navigate("/dashboard"), 2000);
         setNotificationProps({
           message: "Login successful! Redirecting to Dashboard...",
