@@ -67,3 +67,8 @@ export const isPostingNewPostAtom = atom<boolean>({
   key: "isPostingNewPostAtom",
   default: false,
 });
+
+export const tooltipAtom = atom({
+  key: "tooltipAtom",
+  default: false,
+});
