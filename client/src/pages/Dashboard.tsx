@@ -12,7 +12,7 @@ import {
 import { Avatar, AvatarImage, AvatarFallback } from "../@/components/ui/avatar";
 import { Button } from "../@/components/ui/button";
 // import { Input } from "../@/components/ui/input"; (Line 152)
-import { useRecoilValueLoadable } from "recoil";
+import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { universitiesSelector } from "@/recoil/selectors/universities-selector";
 import { ratingSelector } from "@/recoil/selectors/uni-rating-selector";
 import { Link, useNavigate } from "react-router-dom";
@@ -20,12 +20,14 @@ import ErrorPage from "./ErrorPage";
 import { DashboardSkeleton } from "@/@/components/dashboard-skeleton";
 import { userSelector } from "@/recoil/selectors/user-selector";
 import { Rating, University, User } from "@/types";
+import { triggerAtom } from "@/recoil/atoms/trigger-atom";
 
 export default function Dashboard() {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const uniData = useRecoilValueLoadable(universitiesSelector);
   const userData = useRecoilValueLoadable(userSelector);
   const ratingData = useRecoilValueLoadable(ratingSelector);
+  const setTriggerAtom = useSetRecoilState(triggerAtom);
   const navigate = useNavigate();
 
   if (
@@ -127,10 +129,11 @@ export default function Dashboard() {
                     </a> */}
 
                       <a
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                        className="block cursor-pointer px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                         role="menuitem"
                         onClick={() => {
                           localStorage.removeItem("Authorization");
+                          setTriggerAtom((currVal) => currVal + 1);
                           navigate("/");
                         }}
                       >
