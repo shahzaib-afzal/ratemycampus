@@ -17,6 +17,7 @@ import {
   newPostImageAtom,
   expandedCommentsAtom,
   isPostingNewPostAtom,
+  tooltipAtom,
 } from "@/recoil/atoms/university-atoms";
 import ErrorPage from "./ErrorPage";
 import { UniversityPageSkeleton } from "@/@/components/university-page-skeleton";
@@ -65,6 +66,7 @@ export default function UniversityPage() {
     isSubmittingRatingAtom,
   );
   const [userRating, setUserRating] = useRecoilState(userRatingAtom);
+  const [showTooltip, setShowTooltip] = useRecoilState(tooltipAtom);
 
   const uniData = useRecoilValueLoadable(universitiesSelector);
   const userData = useRecoilValueLoadable(userSelector);
@@ -162,7 +164,10 @@ export default function UniversityPage() {
   }, [university, fetchPosts]);
 
   const handleRating = useCallback(
-    (value: number) => setUserRating(value),
+    (value: number) => {
+      setUserRating(value);
+      setShowTooltip(true);
+    },
     [setUserRating],
   );
 
@@ -185,7 +190,7 @@ export default function UniversityPage() {
           },
         );
         setNotificationProps({
-          message: `You have rated ${uniname?.toUpperCase()} ${response.data.rate} stars`,
+          message: `You have rated ${uniname?.toUpperCase()} ${response.data.rating} stars`,
           status: "success",
         });
       } catch (error) {
@@ -200,6 +205,7 @@ export default function UniversityPage() {
         setIsSubmittingRating(false);
         setUserRating(0);
         setShowNotification(true);
+        setShowTooltip(false);
       }
     }
   }, [userRating, isSubmittingRating, setIsSubmittingRating, setUserRating]);
@@ -533,38 +539,56 @@ export default function UniversityPage() {
                   reviews)
                 </div>
               </motion.div>
-
               <div className="flex flex-col space-y-4 sm:flex-row sm:items-center sm:space-x-2 sm:space-y-0">
                 <div className="flex items-center justify-between">
                   <span className="text-base font-bold text-gray-300">
                     Your Rating:
                   </span>
                   <div className="ml-4 flex">
-                    {[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map((star) => (
-                      <button
-                        key={star}
-                        onClick={() => handleRating(star)}
-                        className="h-6 w-6 focus:outline-none"
-                      >
-                        {star % 1 !== 0 ? (
-                          <Star
-                            className={`h-6 w-6 transition-colors duration-200 ${
-                              star <= userRating
-                                ? "text-yellow-400"
-                                : "text-gray-600 hover:text-gray-400"
-                            }`}
-                          />
-                        ) : (
-                          <HalfStar
-                            className={`h-6 w-6 transition-colors duration-200 ${
-                              star <= userRating
-                                ? "text-yellow-400"
-                                : "text-gray-600 hover:text-gray-400"
-                            }`}
-                          />
-                        )}
-                      </button>
-                    ))}
+                    <TooltipProvider>
+                      <Tooltip open={showTooltip}>
+                        <TooltipTrigger asChild>
+                          <div className="flex">
+                            {[1, 1.5, 2, 2.5, 3, 3.5, 4, 4.5, 5].map((star) => (
+                              <button
+                                key={star}
+                                onClick={() => handleRating(star)}
+                                onMouseEnter={() => setShowTooltip(true)}
+                                onMouseLeave={() =>
+                                  setShowTooltip(userRating > 0)
+                                }
+                                className="h-6 w-6 focus:outline-none"
+                              >
+                                {star % 1 !== 0 ? (
+                                  <Star
+                                    className={`h-6 w-6 transition-colors duration-200 ${
+                                      star <= userRating
+                                        ? "text-yellow-400"
+                                        : "text-gray-600 hover:text-gray-400"
+                                    }`}
+                                  />
+                                ) : (
+                                  <HalfStar
+                                    className={`h-6 w-6 transition-colors duration-200 ${
+                                      star <= userRating
+                                        ? "text-yellow-400"
+                                        : "text-gray-600 hover:text-gray-400"
+                                    }`}
+                                  />
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>
+                            {userRating
+                              ? `${userRating.toFixed(1)} stars`
+                              : "Rate this university"}
+                          </p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
                   </div>
                 </div>
                 <Button
