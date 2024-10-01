@@ -603,14 +603,14 @@ export default function UniversityPage() {
             <Textarea
               placeholder="Share your thoughts about the university..."
               value={newPostContent}
-              onChange={(e) => setNewPostContent(e.target.value.slice(0, 300))}
+              onChange={(e) => setNewPostContent(e.target.value.slice(0, 1000))}
               className="mb-4 resize-none rounded-lg border-none bg-white/10 p-3 text-white placeholder-gray-400 transition-all duration-200 focus:ring-2 focus:ring-white/20"
               rows={3}
             />
-            {newPostContent.length >= 300 && (
+            {newPostContent.length >= 1000 && (
               <p className="mb-4 flex items-center text-xs text-yellow-500">
                 <AlertCircle className="mr-1 h-3 w-3" />
-                Post limit reached (300 characters)
+                Post limit reached (1000 characters)
               </p>
             )}
             {newPostImage && (
