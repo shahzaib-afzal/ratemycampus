@@ -115,10 +115,12 @@ http://localhost:5173
 
 - Frontend: React.js, Recoil.js, Tailwind CSS
 - Backend: Hono.js (serverless functions)
-- Database: PostgreSQL (via Prisma ORM)
+- Database: PostgreSQL
+- ORM: Prisma
 - Storage: Cloudflare R2 for images
 - Authentication: JWT (JSON Web Tokens)
 - Validation: Zod schema validation
+- Email Service: Brevo
 
 ## 🌐 **Deployment**
 
