@@ -1,50 +1,39 @@
-# React + TypeScript + Vite
+# **Client - RateMyCampus**
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## **Overview**
 
-Currently, two official plugins are available:
+This directory contains the frontend of the RateMyCampus project, built with React and TypeScript using Vite for lightning-fast development and optimized performance. The frontend offers an intuitive user interface for students to rate, review, and explore universities, ensuring seamless interaction and great user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ **Tech Stack**
 
-## Expanding the ESLint configuration
+- React (UI library)
+- TypeScript (Static typing)
+- Vite (Fast bundler and development server)
+- TailwindCSS (Utility-first CSS framework)
+- Recoil.js (State management)
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🚀 **Getting Started**
 
-- Configure the top-level `parserOptions` property like this:
+### **1. Install dependencies:**
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+Make sure you have Node.js and npm installed, then run:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+`npm install`
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+### **2. Set up environment variables:**
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+Copy .env.example file to .env and add backend api url there.
+
+### **3. Run the development server:**
+
+Start the Vite development server:  
+`npm run dev`
+
+The app will be available at <http://localhost:5173>.
+
+## 💡 **Key Features**
+
+- Responsive Design: Tailored for both mobile and desktop users.
+- High Performance: Built using Vite for quick load times.
+- Scalable Architecture: Modular component-based structure with TypeScript.
+- State Management: Powered by Recoil.js for smooth and predictable state handling.
