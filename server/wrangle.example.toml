@@ -8,11 +8,16 @@ R2_DEV = "your_cdn_link"
 JWT_SECRET = "your_jwt_secret"
 SUPER_USER = "you_email"
 
-# [brevo]
-BREVO_API = "your_brevo_api"
-TEMPLATE_ID = "your_brevo_template_id"
+# If your frontend is running on port 5173 then configure urls as:
+# http://localhost:5173/verify-email
+# http://localhost:5173/reset-password
+
 VERIFICATION_ROUTE = "your_frontend_route_url_for_email_verification"
 RESET_PASSWORD_ROUTE = "your_frontend_route_url_for_reset-password"
+
+# [brevo]
+BREVO_API = "your_brevo_api"
+TEMPLATE_ID = "your_brevo_verify-email_template_id"
 RESET_TEMPLATE = "your_brevo_reset-password_template_id"
 
 [[r2_buckets]]
