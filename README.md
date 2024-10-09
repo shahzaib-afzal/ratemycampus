@@ -44,7 +44,7 @@ Ensure the following are installed:
 
 ```bash
 git clone https://github.com/shahzaib-afzal/ratemycampus.git
-cd RateMyCampus
+cd ratemycampus
 ```
 
 ### **3. Setup Environment Variables**
