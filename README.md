@@ -44,7 +44,7 @@ Ensure the following are installed:
 
 ```bash
 git clone https://github.com/shahzaib-afzal/ratemycampus.git
-cd RateMyCampus
+cd ratemycampus
 ```
 
 ### **3. Setup Environment Variables**
@@ -119,6 +119,7 @@ http://localhost:5173
 - Storage: Cloudflare R2 for images
 - Authentication: JWT (JSON Web Tokens)
 - Validation: Zod schema validation
+- Email Service: Brevo
 
 ## 🌐 **Deployment**
 
