@@ -2,7 +2,8 @@
   "name": "server",
   "scripts": {
     "dev": "wrangler dev src/index.ts",
-    "deploy": "wrangler deploy --minify src/index.ts"
+    "deploy": "wrangler deploy --minify src/index.ts",
+    "prisma:generate": "npx prisma generate --no-engine"
   },
   "dependencies": {
     "@prisma/client": "^5.20.0",
