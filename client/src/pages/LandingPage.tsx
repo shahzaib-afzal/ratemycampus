@@ -6,11 +6,11 @@ import {
   BarChart2,
   Award,
 } from "lucide-react";
-import Navbar from "../@/components/ui/Navbar";
-import { BackgroundLines } from "../@/components/ui/background-lines";
-import { TextGenerateEffect } from "@/@/components/ui/text-generate-effect";
-import { HoverEffect } from "@/@/components/ui/card-hover-effect";
-import { ContainerScroll } from "@/@/components/ui/container-scroll-animation";
+import Navbar from "@/components/ui/Navbar";
+import { BackgroundLines } from "@/components/ui/background-lines";
+import { TextGenerateEffect } from "@/components/ui/text-generate-effect";
+import { HoverEffect } from "@/components/ui/card-hover-effect";
+import { ContainerScroll } from "@/components/ui/container-scroll-animation";
 import { Link } from "react-router-dom";
 
 const features = [

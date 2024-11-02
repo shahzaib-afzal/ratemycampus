@@ -1,11 +1,11 @@
 import { useState, useCallback } from "react";
-import { Button } from "../@/components/ui/button";
-import { Input } from "../@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Eye, EyeOff, Check, X } from "lucide-react";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
-import { Result } from "../@/components/ui/Result";
-import { Loader } from "../@/components/ui/Loader";
+import { Result } from "@/components/ui/Result";
+import { Loader } from "@/components/ui/Loader";
 
 export default function ResetPassword() {
   const [password, setPassword] = useState("");

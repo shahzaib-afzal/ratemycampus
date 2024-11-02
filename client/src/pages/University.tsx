@@ -20,7 +20,7 @@ import {
   tooltipAtom,
 } from "@/recoil/atoms/university-atoms";
 import ErrorPage from "./ErrorPage";
-import { UniversityPageSkeleton } from "@/@/components/university-page-skeleton";
+import { UniversityPageSkeleton } from "@/components/university-page-skeleton";
 import { Comment, Post, User } from "@/types";
 import {
   Star,
@@ -36,21 +36,21 @@ import {
   X,
   AlertCircle,
 } from "lucide-react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/@/components/ui/avatar";
-import { Button } from "@/@/components/ui/button";
-import { Textarea } from "@/@/components/ui/textarea";
-import { Card, CardContent, CardFooter } from "@/@/components/ui/card";
-import { Separator } from "@/@/components/ui/separator";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
-} from "@/@/components/ui/tooltip";
-import { Input } from "@/@/components/ui/input";
+} from "@/components/ui/tooltip";
+import { Input } from "@/components/ui/input";
 import { motion, AnimatePresence } from "framer-motion";
-import { PostSkeleton, CommentSkeleton } from "@/@/components/ui/skeleton";
-import { HalfStar } from "@/@/components/ui/HalfStar";
+import { PostSkeleton, CommentSkeleton } from "@/components/ui/skeleton";
+import { HalfStar } from "@/components/ui/HalfStar";
 import axios from "axios";
 import { postCommentsSelector } from "@/recoil/selectors/comments-selector";
 import { useNotification } from "@/hooks/useNotification";

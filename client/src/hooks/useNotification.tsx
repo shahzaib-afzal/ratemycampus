@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Notification } from "@/@/components/notification";
+import { Notification } from "@/components/notification";
 
 type NotificationStatus = "info" | "error" | "success";
 
