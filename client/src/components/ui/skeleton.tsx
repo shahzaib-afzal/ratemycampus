@@ -1,5 +1,5 @@
-import { cn } from "../../lib/utils";
-import { Card, CardContent } from "./card";
+import { cn } from "@/lib/utils";
+import { Card, CardContent } from "@/components/ui/card";
 
 export function Skeleton({
   className,

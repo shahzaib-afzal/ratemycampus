@@ -1,10 +1,10 @@
 import { useCallback, useState } from "react";
-import { Button } from "../@/components/ui/button";
-import { Input } from "../@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { ArrowRight, Mail } from "lucide-react";
 import axios from "axios";
-import { Result } from "../@/components/ui/Result";
-import { Loader } from "../@/components/ui/Loader";
+import { Result } from "@/components/ui/Result";
+import { Loader } from "@/components/ui/Loader";
 
 export default function ForgetPassword() {
   const [email, setEmail] = useState("");

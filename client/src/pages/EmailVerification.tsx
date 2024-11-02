@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Loader } from "../@/components/ui/Loader";
-import { Result } from "../@/components/ui/Result";
+import { Loader } from "@/components/ui/Loader";
+import { Result } from "@/components/ui/Result";
 import axios from "axios";
 import { useSearchParams } from "react-router-dom";
 

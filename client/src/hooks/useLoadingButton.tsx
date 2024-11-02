@@ -1,5 +1,5 @@
 import { useState, useMemo } from "react";
-import { Loader } from "@/@/components/ui/Loader";
+import { Loader } from "@/components/ui/Loader";
 
 export const useLoadingButton = (defaultText: string) => {
   const [loading, setLoading] = useState(false);

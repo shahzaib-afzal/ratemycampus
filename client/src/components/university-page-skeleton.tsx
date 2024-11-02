@@ -1,5 +1,5 @@
-import { Card, CardContent } from "../components/ui/card";
-import { Button } from "../components/ui/button";
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   MapPin,
   Building,
@@ -9,7 +9,7 @@ import {
   MessageCircle,
   Star,
 } from "lucide-react";
-import { PulseSkeleton } from "@/@/components/ui/skeleton";
+import { PulseSkeleton } from "@/components/ui/skeleton";
 
 export function UniversityPageSkeleton() {
   return (

@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { GraduationCap } from "lucide-react";
-import { HamburgerMenu } from "../hamburger-menu";
+import { HamburgerMenu } from "@/components/hamburger-menu";
 import { Link } from "react-router-dom";
 
 export default function Navbar() {

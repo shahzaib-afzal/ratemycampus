@@ -9,15 +9,15 @@ import {
   MapPin,
   Book,
 } from "lucide-react";
-import { Avatar, AvatarImage, AvatarFallback } from "../@/components/ui/avatar";
-import { Button } from "../@/components/ui/button";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
 // import { Input } from "../@/components/ui/input"; (Line 152)
 import { useRecoilValueLoadable, useSetRecoilState } from "recoil";
 import { universitiesSelector } from "@/recoil/selectors/universities-selector";
 import { ratingSelector } from "@/recoil/selectors/uni-rating-selector";
 import { Link, useNavigate } from "react-router-dom";
 import ErrorPage from "./ErrorPage";
-import { DashboardSkeleton } from "@/@/components/dashboard-skeleton";
+import { DashboardSkeleton } from "@/components/dashboard-skeleton";
 import { userSelector } from "@/recoil/selectors/user-selector";
 import { Rating, University, User } from "@/types";
 import { triggerAtom } from "@/recoil/atoms/trigger-atom";
