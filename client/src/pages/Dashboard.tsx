@@ -84,14 +84,12 @@ export default function Dashboard() {
                 </span>
               </div>
               <div className="flex items-center space-x-4">
-                {user.email === import.meta.env.VITE_SUPER_USER ? (
-                  <Link to={"/add-university"}>
-                    <Button className="hidden transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700 sm:flex">
-                      <Plus className="mr-2 h-4 w-4" />
-                      Add University
-                    </Button>
-                  </Link>
-                ) : null}
+                <Link to={"/add-university"}>
+                  <Button className="hidden transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700 sm:flex">
+                    <Plus className="mr-2 h-4 w-4" />
+                    Add University
+                  </Button>
+                </Link>
                 <div className="relative">
                   <Button
                     className="flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
@@ -167,14 +165,12 @@ export default function Dashboard() {
               </div> */}
             </div>
             <div className="mb-4 sm:hidden">
-              {user.email === import.meta.env.VITE_SUPER_USER ? (
-                <Link to={"/add-university"}>
-                  <Button className="w-full transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700">
-                    <Plus className="mr-2 h-4 w-4" />
-                    Add University
-                  </Button>
-                </Link>
-              ) : null}
+              <Link to={"/add-university"}>
+                <Button className="w-full transform bg-gradient-to-r from-purple-600 to-pink-600 text-white transition duration-300 ease-in-out hover:scale-105 hover:from-purple-700 hover:to-pink-700">
+                  <Plus className="mr-2 h-4 w-4" />
+                  Add University
+                </Button>
+              </Link>
             </div>
             <div className="space-y-6">
               {sortedUniversities.map((university) => (
