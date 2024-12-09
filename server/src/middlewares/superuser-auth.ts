@@ -18,7 +18,7 @@ export const superUserAuth = async (c: Context, next: Next) => {
   } catch (error) {
     return c.json(
       {
-        error: "Not Allowed!",
+        error: "Not Allowed! Only super user can add the university",
       },
       403
     );
