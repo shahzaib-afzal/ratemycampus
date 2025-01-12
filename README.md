@@ -114,7 +114,7 @@ http://localhost:5173
 ## 💻**Tech Stack**
 
 - Frontend: React.js, Recoil.js, Tailwind CSS
-- Backend: Hono.js (serverless functions)
+- Backend: Hono.js (Cloudflare Worker)
 - Database: PostgreSQL
 - ORM: Prisma
 - Storage: Cloudflare R2 for images
